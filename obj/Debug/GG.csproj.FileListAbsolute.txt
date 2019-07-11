@@ -1,0 +1,15 @@
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe.config
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csprojAssemblyReference.cache
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Homepage.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Login.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Properties.Resources.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Register.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.GenerateResource.cache
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Contact.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.News.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.User.resources
