@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GG
@@ -32,14 +27,16 @@ namespace GG
 			if (Valide(tb1.Text, tb2.Text, tb3.Text))
 			{
 				int num = Get_user_num() + 1;
+				string ipv4 = Get_Host_IP();
 				string salt = Get_salt();
 				SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 				conn.Open();
 
-				SqlCommand cmd = new SqlCommand("insert into GGusers values(" + num +",@UN, @SALT, @HASH,0)", conn);
+				SqlCommand cmd = new SqlCommand("insert into GGusers(id,username,salt,hash,statue,ip) values(" + num +",@UN, @SALT, @HASH,0,@IP)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
 				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = Get_hash(tb2.Text,salt);
+				cmd.Parameters.Add("@IP", SqlDbType.VarChar, 50).Value = ipv4;
 
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
@@ -60,6 +57,21 @@ namespace GG
 			homepage.Show();
 		}
 
+		private string Get_Host_IP()
+		{
+			string ipv4 = "";
+			string hostName = Dns.GetHostName();
+			IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
+			for (int i = 0; i < iPHostEntry.AddressList.Length; i++)
+			{
+				if (iPHostEntry.AddressList[i].AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+				{
+					ipv4 = iPHostEntry.AddressList[i].ToString();//IPv4
+				}
+			}
+			return ipv4;
+		}
+
 		private int Get_user_num()
 		{
 			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
@@ -73,13 +85,42 @@ namespace GG
 			return ds.Tables[0].Rows.Count;
 		}
 
-		private Boolean Valide(string name, string passward, string cpassword)
+		private bool Judge_username(string name)
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = new SqlCommand("select * from GGusers where username = @UN", conn);
+			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = name;
+			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adapter.Fill(ds);
+
+			int num = ds.Tables[0].Rows.Count;
+			if (num > 0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
+		private bool Valide(string name, string passward, string cpassword)
 		{
 			if (name.Equals(""))
 			{
 				MessageBox.Show("Username cannot be empty!", "WARNING!");
 				return false;
 			}
+			
+			if (!Judge_username(name))
+			{
+				MessageBox.Show("This name has been used!", "WARNING!");
+				return false;
+			}
+			
 			if (passward.Equals(""))
 			{
 				MessageBox.Show("Password cannot be empty!", "WARNING!");
@@ -98,6 +139,7 @@ namespace GG
 
 			return true;
 		}
+
 		private string Get_salt()
 		{
 			RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();

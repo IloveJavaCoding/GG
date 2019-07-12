@@ -34,6 +34,8 @@
 			this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hostname = new System.Windows.Forms.Label();
+			this.ip = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -86,11 +88,31 @@
 			this.userToolStripMenuItem.Text = "User";
 			this.userToolStripMenuItem.Click += new System.EventHandler(this.UserToolStripMenuItem_Click);
 			// 
+			// hostname
+			// 
+			this.hostname.AutoSize = true;
+			this.hostname.Location = new System.Drawing.Point(232, 87);
+			this.hostname.Name = "hostname";
+			this.hostname.Size = new System.Drawing.Size(53, 12);
+			this.hostname.TabIndex = 2;
+			this.hostname.Text = "Hostname";
+			// 
+			// ip
+			// 
+			this.ip.AutoSize = true;
+			this.ip.Location = new System.Drawing.Point(236, 132);
+			this.ip.Name = "ip";
+			this.ip.Size = new System.Drawing.Size(29, 12);
+			this.ip.TabIndex = 3;
+			this.ip.Text = "IPv4";
+			// 
 			// Homepage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.ip);
+			this.Controls.Add(this.hostname);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
@@ -113,5 +135,7 @@
 		private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
+		private System.Windows.Forms.Label hostname;
+		private System.Windows.Forms.Label ip;
 	}
 }

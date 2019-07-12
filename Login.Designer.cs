@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.username = new System.Windows.Forms.TextBox();
@@ -38,6 +39,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.cb1 = new System.Windows.Forms.CheckBox();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -80,7 +82,7 @@
 			// 
 			this.register.AutoSize = true;
 			this.register.ForeColor = System.Drawing.SystemColors.Highlight;
-			this.register.Location = new System.Drawing.Point(12, 340);
+			this.register.Location = new System.Drawing.Point(15, 335);
 			this.register.Name = "register";
 			this.register.Size = new System.Drawing.Size(53, 12);
 			this.register.TabIndex = 4;
@@ -126,6 +128,12 @@
 			this.cb1.UseVisualStyleBackColor = true;
 			this.cb1.CheckedChanged += new System.EventHandler(this.Cb1_CheckedChanged);
 			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// Login
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -161,6 +169,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.CheckBox cb1;
+		private System.Windows.Forms.ImageList imageList1;
 	}
 }
 

@@ -10,21 +10,48 @@ namespace GG
 	{
 		protected string username = "";
 		protected Color colors;
-		//protected Users user;
 		public User(string name)
 		{
 			InitializeComponent();
-			this.username = name;
+			username = name;
 			colors = Color.FromArgb(112, 224, 255);
 		}
 
 		private void User_Load(object sender, EventArgs e)
 		{
-			label1.Text = username;
 			userToolStripMenuItem.Checked = true;
 			userToolStripMenuItem.BackColor = colors;
-			//user = Get_userinfo(username);
+			
+			Account_info_bind(username);
+
+			Image image = this.pictureBox2.Image;
+			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
+			this.pictureBox2.Image = image1;
+		}
+
+		private void Account_info_bind(string name)
+		{
+			label1.Text = name;
 			label2.Text = "Online";
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = name;
+
+			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adapter.Fill(ds);
+
+			l_gender.Text = ds.Tables[0].Rows[0][5].ToString();
+			l_age.Text = ds.Tables[0].Rows[0][6].ToString();
+			l_birthday.Text = ds.Tables[0].Rows[0][7].ToString();
+			l_address.Text = ds.Tables[0].Rows[0][8].ToString();
+			signature.Text = ds.Tables[0].Rows[0][9].ToString();
+			l_blood.Text = ds.Tables[0].Rows[0][10].ToString();
+
+			cmd.Dispose();
+			conn.Close();
 		}
 
 		private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,6 +80,7 @@ namespace GG
 
 		private void User_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			LogoutAccount();
 			Application.Exit();
 		}
 
@@ -78,53 +106,51 @@ namespace GG
 			conn.Close();
 		}
 
-		private Users Get_userinfo(string name)
+		private void Edit_Click(object sender, EventArgs e)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
-
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
-			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = name;
-
-			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-			DataSet ds = new DataSet();
-			adapter.Fill(ds);
-
-			Users users = new Users();
-			users.set_state((int)ds.Tables[0].Rows[0][4]);
-			users.set_username(name);
-
-			cmd.Dispose();
-			conn.Close();
-
-			return users;
-		}
-	}
-
-	class Users
-	{
-		string username;
-		int state;
-
-		public Users() { }
-		public void set_username(string name)
-		{
-			this.username = name;
+			Edit_account edit_Account = new Edit_account(this, username);
+			edit_Account.Show();
 		}
 
-		public string get_username()
+		public void Refresh_window(string username)
 		{
-			return username;
+			Account_info_bind(username);
 		}
 
-		public void set_state(int state)
+		private void PictureBox2_DoubleClick(object sender, EventArgs e)
 		{
-			this.state = state;
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			if(openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Image img = Image.FromFile(openFileDialog.FileName);
+				pictureBox2.Image = img;
+			}
 		}
 
-		public int get_state()
+		private void Change_bg_Click(object sender, EventArgs e)
 		{
-			return state;
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Image img = Image.FromFile(openFileDialog.FileName);
+				pictureBox1.Image = img;
+			}
+		}
+
+		private Image CutEllipse(Image img, Rectangle rec, Size size)
+		{
+			Bitmap bitmap = new Bitmap(size.Width, size.Height);
+			using(Graphics g = Graphics.FromImage(bitmap))
+			{
+				using(TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
+				{
+					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
+					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+					g.FillEllipse(br, new Rectangle(Point.Empty, size));
+				}
+			}
+
+			return bitmap;
 		}
 	}
 }

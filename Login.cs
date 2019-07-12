@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GG
@@ -20,6 +15,7 @@ namespace GG
 		public Login()
 		{
 			InitializeComponent();
+			this.StartPosition = FormStartPosition.CenterScreen;
 		}
 
 		private void B_login_Click(object sender, EventArgs e)
@@ -100,12 +96,28 @@ namespace GG
 
 		private void LoginAccount(string name)
 		{
+			string ip = Get_Host_IP();
 			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 1 where username = '" + name + "'";
+			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '"+ip+"' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
+		}
+
+		private string Get_Host_IP()
+		{
+			string ipv4="";
+			string hostName = Dns.GetHostName();
+			IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
+			for (int i = 0; i < iPHostEntry.AddressList.Length; i++)
+			{
+				if (iPHostEntry.AddressList[i].AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+				{
+					ipv4 = iPHostEntry.AddressList[i].ToString();//IPv4
+				}
+			}
+			return ipv4;
 		}
 
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)

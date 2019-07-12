@@ -13,3 +13,4 @@ D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.pdb
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Contact.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.News.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.User.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Edit_account.resources

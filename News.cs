@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -51,8 +52,22 @@ namespace GG
 			user.Show();
 		}
 
+		private void LogoutAccount()
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "update dbo.GGusers set statue = 0 where username = '" + username + "'";
+			cmd.ExecuteNonQuery();
+
+			cmd.Dispose();
+			conn.Close();
+		}
+
 		private void News_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			LogoutAccount();
 			Application.Exit();
 		}
 	}
