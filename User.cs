@@ -2,6 +2,8 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace GG
@@ -23,10 +25,37 @@ namespace GG
 			userToolStripMenuItem.BackColor = colors;
 			
 			Account_info_bind(username);
+			Change_shap();
 
-			Image image = this.pictureBox2.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			this.pictureBox2.Image = image1;
+			string bgname = Get_bgname(username);
+			if (!bgname.Equals(""))
+			{
+				Load_bgimg(bgname);
+			}
+		}
+
+		private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			Homepage homepage = new Homepage(username);
+			homepage.StartPosition = FormStartPosition.CenterScreen;
+			homepage.Show();
+		}
+
+		private void ContactsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			Contact contact = new Contact(username);
+			contact.StartPosition = FormStartPosition.CenterScreen;
+			contact.Show();
+		}
+
+		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			News news = new News(username);
+			news.StartPosition = FormStartPosition.CenterScreen;
+			news.Show();
 		}
 
 		private void Account_info_bind(string name)
@@ -54,43 +83,118 @@ namespace GG
 			conn.Close();
 		}
 
-		private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Load_bgimg(string name)
 		{
-			this.Hide();
-			Homepage homepage = new Homepage(username);
-			homepage.StartPosition = FormStartPosition.CenterScreen;
-			homepage.Show();
+			WebClient webClient = new WebClient();
+			var bytes = webClient.DownloadData(@"/MyDatabase/CourseData/" + name);
+			Image img = Image.FromStream(new MemoryStream(bytes));
+			pictureBox1.Image = img;
 		}
 
-		private void ContactsToolStripMenuItem_Click(object sender, EventArgs e)
+		private string Get_bgname(string username)
 		{
-			this.Hide();
-			Contact contact = new Contact(username);
-			contact.StartPosition = FormStartPosition.CenterScreen;
-			contact.Show();
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
+
+			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adapter.Fill(ds);
+
+			return ds.Tables[0].Rows[0][13].ToString();
 		}
 
-		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Edit_Click(object sender, EventArgs e)
 		{
-			this.Hide();
-			News news = new News(username);
-			news.StartPosition = FormStartPosition.CenterScreen;
-			news.Show();
+			Edit_account edit_Account = new Edit_account(this, username);
+			edit_Account.Show();
 		}
 
-		private void User_FormClosed(object sender, FormClosedEventArgs e)
+		private void Change_password_Click(object sender, EventArgs e)
 		{
-			LogoutAccount();
-			Application.Exit();
+			Change_password change = new Change_password(this, username);
+			change.Show();
+		}
+
+		private void PictureBox2_DoubleClick(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Image|*.jpg;*.png";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Image img = Image.FromFile(openFileDialog.FileName);
+				pictureBox2.Image = img;
+
+				Change_shap();
+			}
+		}
+
+		private void Change_bg_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Image|*.jpg;*.png";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Image img = Image.FromFile(openFileDialog.FileName);
+				pictureBox1.Image = img;
+				string path = openFileDialog.FileName;
+				Upload_img(path);
+			}
+		}
+
+		private void Upload_img(string path)
+		{
+			WebClient webClient = new WebClient();
+			webClient.UploadFile("https://localhost:44376/Home.aspx", "POST", path);
+			
+			Update_bgname(username, path.Substring(path.LastIndexOf("\\") + 1));
+		}
+
+		private void Update_bgname(string name,string bg)
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "update dbo.GGusers set bgname = '"+ bg +"' where username = '" + name + "'";
+			cmd.ExecuteNonQuery();
+
+			cmd.Dispose();
+			conn.Close();
 		}
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
-			if(MessageBox.Show("Are you sure to logout?", "GG", MessageBoxButtons.YesNo) == DialogResult.Yes)
+			if (MessageBox.Show("Are you sure to logout?", "GG", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
 				LogoutAccount();
 				Application.Exit();
 			}
+		}
+
+		private void Change_shap()
+		{
+			Image image = pictureBox2.Image;
+			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
+			pictureBox2.Image = image1;
+		}
+
+		private Image CutEllipse(Image img, Rectangle rec, Size size)
+		{
+			Bitmap bitmap = new Bitmap(size.Width, size.Height);
+			using (Graphics g = Graphics.FromImage(bitmap))
+			{
+				using (TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
+				{
+					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
+					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+					g.FillEllipse(br, new Rectangle(Point.Empty, size));
+				}
+			}
+
+			return bitmap;
 		}
 
 		private void LogoutAccount()
@@ -106,51 +210,16 @@ namespace GG
 			conn.Close();
 		}
 
-		private void Edit_Click(object sender, EventArgs e)
-		{
-			Edit_account edit_Account = new Edit_account(this, username);
-			edit_Account.Show();
-		}
-
 		public void Refresh_window(string username)
 		{
 			Account_info_bind(username);
 		}
 
-		private void PictureBox2_DoubleClick(object sender, EventArgs e)
+		private void User_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			if(openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Image img = Image.FromFile(openFileDialog.FileName);
-				pictureBox2.Image = img;
-			}
+			LogoutAccount();
+			Application.Exit();
 		}
 
-		private void Change_bg_Click(object sender, EventArgs e)
-		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Image img = Image.FromFile(openFileDialog.FileName);
-				pictureBox1.Image = img;
-			}
-		}
-
-		private Image CutEllipse(Image img, Rectangle rec, Size size)
-		{
-			Bitmap bitmap = new Bitmap(size.Width, size.Height);
-			using(Graphics g = Graphics.FromImage(bitmap))
-			{
-				using(TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
-				{
-					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
-					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-					g.FillEllipse(br, new Rectangle(Point.Empty, size));
-				}
-			}
-
-			return bitmap;
-		}
 	}
 }

@@ -29,6 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.tb_signature = new System.Windows.Forms.TextBox();
+			this.signature = new System.Windows.Forms.Label();
+			this.cb_blood = new System.Windows.Forms.ComboBox();
+			this.cb_gender = new System.Windows.Forms.ComboBox();
 			this.tb_address = new System.Windows.Forms.TextBox();
 			this.tb_birthday = new System.Windows.Forms.TextBox();
 			this.tb_age = new System.Windows.Forms.TextBox();
@@ -38,10 +42,6 @@
 			this.age = new System.Windows.Forms.Label();
 			this.gender = new System.Windows.Forms.Label();
 			this.save = new System.Windows.Forms.Button();
-			this.cb_gender = new System.Windows.Forms.ComboBox();
-			this.cb_blood = new System.Windows.Forms.ComboBox();
-			this.signature = new System.Windows.Forms.Label();
-			this.tb_signature = new System.Windows.Forms.TextBox();
 			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -64,6 +64,40 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(368, 513);
 			this.panel2.TabIndex = 8;
+			// 
+			// tb_signature
+			// 
+			this.tb_signature.Location = new System.Drawing.Point(114, 333);
+			this.tb_signature.MaxLength = 150;
+			this.tb_signature.Multiline = true;
+			this.tb_signature.Name = "tb_signature";
+			this.tb_signature.Size = new System.Drawing.Size(228, 74);
+			this.tb_signature.TabIndex = 20;
+			// 
+			// signature
+			// 
+			this.signature.AutoSize = true;
+			this.signature.Location = new System.Drawing.Point(29, 343);
+			this.signature.Name = "signature";
+			this.signature.Size = new System.Drawing.Size(65, 12);
+			this.signature.TabIndex = 19;
+			this.signature.Text = "Signature:";
+			// 
+			// cb_blood
+			// 
+			this.cb_blood.FormattingEnabled = true;
+			this.cb_blood.Location = new System.Drawing.Point(114, 273);
+			this.cb_blood.Name = "cb_blood";
+			this.cb_blood.Size = new System.Drawing.Size(228, 20);
+			this.cb_blood.TabIndex = 18;
+			// 
+			// cb_gender
+			// 
+			this.cb_gender.FormattingEnabled = true;
+			this.cb_gender.Location = new System.Drawing.Point(114, 25);
+			this.cb_gender.Name = "cb_gender";
+			this.cb_gender.Size = new System.Drawing.Size(228, 20);
+			this.cb_gender.TabIndex = 17;
 			// 
 			// tb_address
 			// 
@@ -141,46 +175,13 @@
 			this.save.UseVisualStyleBackColor = true;
 			this.save.Click += new System.EventHandler(this.Save_Click);
 			// 
-			// cb_gender
-			// 
-			this.cb_gender.FormattingEnabled = true;
-			this.cb_gender.Location = new System.Drawing.Point(114, 25);
-			this.cb_gender.Name = "cb_gender";
-			this.cb_gender.Size = new System.Drawing.Size(228, 20);
-			this.cb_gender.TabIndex = 17;
-			// 
-			// cb_blood
-			// 
-			this.cb_blood.FormattingEnabled = true;
-			this.cb_blood.Location = new System.Drawing.Point(114, 273);
-			this.cb_blood.Name = "cb_blood";
-			this.cb_blood.Size = new System.Drawing.Size(228, 20);
-			this.cb_blood.TabIndex = 18;
-			// 
-			// signature
-			// 
-			this.signature.AutoSize = true;
-			this.signature.Location = new System.Drawing.Point(29, 343);
-			this.signature.Name = "signature";
-			this.signature.Size = new System.Drawing.Size(65, 12);
-			this.signature.TabIndex = 19;
-			this.signature.Text = "Signature:";
-			// 
-			// tb_signature
-			// 
-			this.tb_signature.Location = new System.Drawing.Point(114, 333);
-			this.tb_signature.MaxLength = 150;
-			this.tb_signature.Multiline = true;
-			this.tb_signature.Name = "tb_signature";
-			this.tb_signature.Size = new System.Drawing.Size(228, 74);
-			this.tb_signature.TabIndex = 20;
-			// 
 			// Edit_account
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(369, 491);
 			this.Controls.Add(this.panel2);
+			this.MaximizeBox = false;
 			this.Name = "Edit_account";
 			this.Text = "Edit_account";
 			this.Load += new System.EventHandler(this.Edit_account_Load);

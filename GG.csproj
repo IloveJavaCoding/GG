@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Change_password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Change_password.Designer.cs">
+      <DependentUpon>Change_password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Contact.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,12 @@
     </Compile>
     <Compile Include="Edit_account.Designer.cs">
       <DependentUpon>Edit_account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forget_password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forget_password.Designer.cs">
+      <DependentUpon>Forget_password.cs</DependentUpon>
     </Compile>
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
@@ -90,11 +102,17 @@
     <Compile Include="User.Designer.cs">
       <DependentUpon>User.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Change_password.resx">
+      <DependentUpon>Change_password.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Contact.resx">
       <DependentUpon>Contact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edit_account.resx">
       <DependentUpon>Edit_account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forget_password.resx">
+      <DependentUpon>Forget_password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Homepage.resx">
       <DependentUpon>Homepage.cs</DependentUpon>
@@ -132,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Image\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

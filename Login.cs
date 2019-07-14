@@ -15,7 +15,7 @@ namespace GG
 		public Login()
 		{
 			InitializeComponent();
-			this.StartPosition = FormStartPosition.CenterScreen;
+			StartPosition = FormStartPosition.CenterScreen;
 		}
 
 		private void B_login_Click(object sender, EventArgs e)
@@ -40,8 +40,10 @@ namespace GG
 				{
 					this.Hide();
 					LoginAccount(username.Text);
-					Homepage homepage = new Homepage(username.Text);
-					homepage.StartPosition = FormStartPosition.CenterScreen;
+					Homepage homepage = new Homepage(username.Text)
+					{
+						StartPosition = FormStartPosition.CenterScreen
+					};
 					homepage.Show();
 				}
 				else
@@ -54,27 +56,35 @@ namespace GG
 			conn.Close();
 		}
 
-		private string Get_hash(string password, string str)
+		private void LoginAccount(string name)
 		{
-			byte[] salt = Convert.FromBase64String(str);
-			byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
+			string ip = Get_Host_IP();
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
 
-			return Convert.ToBase64String(hash, 0, 24);
-		}
-
-		private static byte[] PBKDF2(string password, byte[] salt, int iterations, int outputBytes)
-		{
-			Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt);
-			pbkdf2.IterationCount = iterations;
-			return pbkdf2.GetBytes(outputBytes);
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '" + ip + "' where username = '" + name + "'";
+			cmd.ExecuteNonQuery();
 		}
 
 		private void Register_Click(object sender, EventArgs e)
 		{
 			this.Hide();
-			Register register = new Register();
-			register.StartPosition = FormStartPosition.CenterScreen;
+			Register register = new Register
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			register.Show();
+		}
+
+		private void Forget_pass_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			Forget_password forget = new Forget_password
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
+			forget.Show();
 		}
 
 		private void Cb1_CheckedChanged(object sender, EventArgs e)
@@ -89,25 +99,9 @@ namespace GG
 			}
 		}
 
-		private void Login_Load(object sender, EventArgs e)
-		{
-
-		}
-
-		private void LoginAccount(string name)
-		{
-			string ip = Get_Host_IP();
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
-
-			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '"+ip+"' where username = '" + name + "'";
-			cmd.ExecuteNonQuery();
-		}
-
 		private string Get_Host_IP()
 		{
-			string ipv4="";
+			string ipv4 = "";
 			string hostName = Dns.GetHostName();
 			IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
 			for (int i = 0; i < iPHostEntry.AddressList.Length; i++)
@@ -118,6 +112,23 @@ namespace GG
 				}
 			}
 			return ipv4;
+		}
+
+		private string Get_hash(string password, string str)
+		{
+			byte[] salt = Convert.FromBase64String(str);
+			byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
+
+			return Convert.ToBase64String(hash, 0, 24);
+		}
+
+		private static byte[] PBKDF2(string password, byte[] salt, int iterations, int outputBytes)
+		{
+			Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt)
+			{
+				IterationCount = iterations
+			};
+			return pbkdf2.GetBytes(outputBytes);
 		}
 
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)

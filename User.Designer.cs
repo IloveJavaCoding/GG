@@ -37,8 +37,9 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.pictureBox2 = new System.Windows.Forms.PictureBox();
+			this.panel3 = new System.Windows.Forms.Panel();
 			this.signature = new System.Windows.Forms.Label();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.Edit = new System.Windows.Forms.Label();
@@ -48,19 +49,19 @@
 			this.address = new System.Windows.Forms.Label();
 			this.blood = new System.Windows.Forms.Label();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.change_password = new System.Windows.Forms.Label();
 			this.l_blood = new System.Windows.Forms.Label();
 			this.l_address = new System.Windows.Forms.Label();
 			this.l_birthday = new System.Windows.Forms.Label();
 			this.l_age = new System.Windows.Forms.Label();
 			this.l_gender = new System.Windows.Forms.Label();
 			this.change_bg = new System.Windows.Forms.Label();
-			this.panel3 = new System.Windows.Forms.Panel();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.panel2.SuspendLayout();
-			this.panel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -137,15 +138,15 @@
 			this.panel1.Size = new System.Drawing.Size(444, 120);
 			this.panel1.TabIndex = 5;
 			// 
-			// pictureBox2
+			// panel3
 			// 
-			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-			this.pictureBox2.Location = new System.Drawing.Point(7, 5);
-			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(75, 75);
-			this.pictureBox2.TabIndex = 3;
-			this.pictureBox2.TabStop = false;
-			this.pictureBox2.DoubleClick += new System.EventHandler(this.PictureBox2_DoubleClick);
+			this.panel3.Controls.Add(this.signature);
+			this.panel3.Controls.Add(this.pictureBox2);
+			this.panel3.Controls.Add(this.label1);
+			this.panel3.Location = new System.Drawing.Point(69, 18);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(319, 85);
+			this.panel3.TabIndex = 4;
 			// 
 			// signature
 			// 
@@ -156,6 +157,16 @@
 			this.signature.Size = new System.Drawing.Size(228, 12);
 			this.signature.TabIndex = 2;
 			this.signature.Text = "signature";
+			// 
+			// pictureBox2
+			// 
+			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+			this.pictureBox2.Location = new System.Drawing.Point(7, 5);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(75, 75);
+			this.pictureBox2.TabIndex = 3;
+			this.pictureBox2.TabStop = false;
+			this.pictureBox2.DoubleClick += new System.EventHandler(this.PictureBox2_DoubleClick);
 			// 
 			// button1
 			// 
@@ -171,7 +182,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.ForeColor = System.Drawing.Color.Blue;
-			this.label2.Location = new System.Drawing.Point(65, 367);
+			this.label2.Location = new System.Drawing.Point(50, 367);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(35, 12);
 			this.label2.TabIndex = 3;
@@ -241,6 +252,7 @@
 			// panel2
 			// 
 			this.panel2.BackColor = System.Drawing.Color.White;
+			this.panel2.Controls.Add(this.change_password);
 			this.panel2.Controls.Add(this.l_blood);
 			this.panel2.Controls.Add(this.l_address);
 			this.panel2.Controls.Add(this.l_birthday);
@@ -258,6 +270,17 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(357, 421);
 			this.panel2.TabIndex = 7;
+			// 
+			// change_password
+			// 
+			this.change_password.AutoSize = true;
+			this.change_password.ForeColor = System.Drawing.Color.Blue;
+			this.change_password.Location = new System.Drawing.Point(221, 81);
+			this.change_password.Name = "change_password";
+			this.change_password.Size = new System.Drawing.Size(95, 12);
+			this.change_password.TabIndex = 17;
+			this.change_password.Text = "Change password";
+			this.change_password.Click += new System.EventHandler(this.Change_password_Click);
 			// 
 			// l_blood
 			// 
@@ -316,16 +339,6 @@
 			this.change_bg.Text = "Change background";
 			this.change_bg.Click += new System.EventHandler(this.Change_bg_Click);
 			// 
-			// panel3
-			// 
-			this.panel3.Controls.Add(this.signature);
-			this.panel3.Controls.Add(this.pictureBox2);
-			this.panel3.Controls.Add(this.label1);
-			this.panel3.Location = new System.Drawing.Point(69, 18);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(319, 85);
-			this.panel3.TabIndex = 4;
-			// 
 			// User
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -337,6 +350,7 @@
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.panel1);
 			this.MainMenuStrip = this.menuStrip1;
+			this.MaximizeBox = false;
 			this.Name = "User";
 			this.Text = "Homepage";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.User_FormClosed);
@@ -345,10 +359,10 @@
 			this.menuStrip1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.panel1.ResumeLayout(false);
+			this.panel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
-			this.panel3.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -382,5 +396,6 @@
 		private System.Windows.Forms.Label l_gender;
 		private System.Windows.Forms.Label change_bg;
 		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.Label change_password;
 	}
 }

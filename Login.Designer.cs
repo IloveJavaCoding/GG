@@ -98,6 +98,7 @@
 			this.forget_pass.Size = new System.Drawing.Size(101, 12);
 			this.forget_pass.TabIndex = 5;
 			this.forget_pass.Text = "Forget password?";
+			this.forget_pass.Click += new System.EventHandler(this.Forget_pass_Click);
 			// 
 			// label1
 			// 
@@ -148,10 +149,10 @@
 			this.Controls.Add(this.password);
 			this.Controls.Add(this.username);
 			this.Controls.Add(this.pictureBox1);
+			this.MaximizeBox = false;
 			this.Name = "Login";
 			this.Text = "GG";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Login_FormClosed);
-			this.Load += new System.EventHandler(this.Login_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

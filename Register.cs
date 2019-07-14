@@ -32,11 +32,12 @@ namespace GG
 				SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 				conn.Open();
 
-				SqlCommand cmd = new SqlCommand("insert into GGusers(id,username,salt,hash,statue,ip) values(" + num +",@UN, @SALT, @HASH,0,@IP)", conn);
+				SqlCommand cmd = new SqlCommand("insert into GGusers(id,username,salt,hash,statue,ip,answer) values(" + num +",@UN, @SALT, @HASH,0,@IP,@AS)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
 				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = Get_hash(tb2.Text,salt);
 				cmd.Parameters.Add("@IP", SqlDbType.VarChar, 50).Value = ipv4;
+				cmd.Parameters.Add("@AS", SqlDbType.VarChar, 50).Value = tb4.Text;
 
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
