@@ -27,10 +27,21 @@ namespace GG
 			Account_info_bind(username);
 			Change_shap();
 
+			Load_imgs();
+		}
+
+		private void Load_imgs()
+		{
 			string bgname = Get_bgname(username);
 			if (!bgname.Equals(""))
 			{
 				Load_bgimg(bgname);
+			}
+
+			string portrait = Get_portraitname(username);
+			if (!portrait.Equals(""))
+			{
+				Load_portrait(portrait);
 			}
 		}
 
@@ -83,38 +94,23 @@ namespace GG
 			conn.Close();
 		}
 
-		private void Load_bgimg(string name)
+		private void Load_bgimg(string filename)
 		{
 			WebClient webClient = new WebClient();
-			
-			//var bytes = webClient.DownloadData("MyDatabase/CourseData/" + name);
-			//Image img = Image.FromStream(new MemoryStream(bytes));
-
-			string path = Get_Folder_Path()+name;
-			string url = "https://202.188.18.188:8888/" + name;
-			//_ = WebRequest.Create(url);
-			webClient.DownloadFile(@url, @path);
-			Image img = Image.FromFile(path);
+			string url = "http://localhost:55607/database/" + filename;
+			var bytes = webClient.DownloadData(url);
+			Image img = Image.FromStream(new MemoryStream(bytes));
 			pictureBox1.Image = img;
 		}
 
-		private string Get_Folder_Path()
+		private void Load_portrait(string filename)
 		{
-			string path = Application.StartupPath;
-			string folder = Path.Combine(path, "Image");
-			bool folderExist = Directory.Exists(folder);
-			if (!folderExist)
-			{
-				try
-				{
-					Directory.CreateDirectory(folder);
-				}
-				catch
-				{
-					MessageBox.Show("No find!", "Exception");
-				}
-			}
-			return folder+"/";
+			WebClient webClient = new WebClient();
+			string url = "http://localhost:55607/database/" + filename;
+			var bytes = webClient.DownloadData(url);
+			Image img = Image.FromStream(new MemoryStream(bytes));
+			pictureBox2.Image = img;
+			Change_shap();
 		}
 
 		private string Get_bgname(string username)
@@ -129,7 +125,28 @@ namespace GG
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
+			cmd.Dispose();
+			conn.Close();
+
 			return ds.Tables[0].Rows[0][13].ToString();
+		}
+
+		private string Get_portraitname(string username)
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
+
+			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adapter.Fill(ds);
+
+			cmd.Dispose();
+			conn.Close();
+
+			return ds.Tables[0].Rows[0][14].ToString();
 		}
 
 		private void Edit_Click(object sender, EventArgs e)
@@ -154,7 +171,30 @@ namespace GG
 				pictureBox2.Image = img;
 
 				Change_shap();
+				string path = openFileDialog.FileName;
+				Upload_portrait(path);
 			}
+		}
+
+		private void Upload_portrait(string path)
+		{
+			WebClient webClient = new WebClient();
+			webClient.UploadFile("https://localhost:44376/Home.aspx", "POST", path);
+
+			Update_portraitname(username, path.Substring(path.LastIndexOf("\\") + 1));
+		}
+
+		private void Update_portraitname(string name, string portraits)
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "update dbo.GGusers set portrait = '" + portraits + "' where username = '" + name + "'";
+			cmd.ExecuteNonQuery();
+
+			cmd.Dispose();
+			conn.Close();
 		}
 
 		private void Change_bg_Click(object sender, EventArgs e)
@@ -166,11 +206,11 @@ namespace GG
 				Image img = Image.FromFile(openFileDialog.FileName);
 				pictureBox1.Image = img;
 				string path = openFileDialog.FileName;
-				Upload_img(path);
+				Upload_bgimg(path);
 			}
 		}
 
-		private void Upload_img(string path)
+		private void Upload_bgimg(string path)
 		{
 			WebClient webClient = new WebClient();
 			webClient.UploadFile("https://localhost:44376/Home.aspx", "POST", path);
