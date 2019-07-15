@@ -86,9 +86,35 @@ namespace GG
 		private void Load_bgimg(string name)
 		{
 			WebClient webClient = new WebClient();
-			var bytes = webClient.DownloadData(@"/MyDatabase/CourseData/" + name);
-			Image img = Image.FromStream(new MemoryStream(bytes));
+			
+			//var bytes = webClient.DownloadData("MyDatabase/CourseData/" + name);
+			//Image img = Image.FromStream(new MemoryStream(bytes));
+
+			string path = Get_Folder_Path()+name;
+			string url = "https://202.188.18.188:8888/" + name;
+			//_ = WebRequest.Create(url);
+			webClient.DownloadFile(@url, @path);
+			Image img = Image.FromFile(path);
 			pictureBox1.Image = img;
+		}
+
+		private string Get_Folder_Path()
+		{
+			string path = Application.StartupPath;
+			string folder = Path.Combine(path, "Image");
+			bool folderExist = Directory.Exists(folder);
+			if (!folderExist)
+			{
+				try
+				{
+					Directory.CreateDirectory(folder);
+				}
+				catch
+				{
+					MessageBox.Show("No find!", "Exception");
+				}
+			}
+			return folder+"/";
 		}
 
 		private string Get_bgname(string username)
