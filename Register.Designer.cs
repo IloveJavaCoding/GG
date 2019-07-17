@@ -151,7 +151,7 @@
 			// answer
 			// 
 			this.answer.AutoSize = true;
-			this.answer.Location = new System.Drawing.Point(111, 246);
+			this.answer.Location = new System.Drawing.Point(123, 246);
 			this.answer.Name = "answer";
 			this.answer.Size = new System.Drawing.Size(89, 12);
 			this.answer.TabIndex = 11;

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add_friend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_friend.Designer.cs">
+      <DependentUpon>Add_friend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Change_password.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,10 @@
     <Compile Include="User.Designer.cs">
       <DependentUpon>User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Users.cs" />
+    <EmbeddedResource Include="Add_friend.resx">
+      <DependentUpon>Add_friend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Change_password.resx">
       <DependentUpon>Change_password.cs</DependentUpon>
     </EmbeddedResource>

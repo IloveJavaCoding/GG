@@ -50,7 +50,7 @@ namespace GG
 		}
 		private void ContactsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Hide();
+			Hide();
 			Contact contact = new Contact(username);
 			contact.StartPosition = FormStartPosition.CenterScreen;
 			contact.Show();
@@ -58,7 +58,7 @@ namespace GG
 
 		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Hide();
+			Hide();
 			News news = new News(username);
 			news.StartPosition = FormStartPosition.CenterScreen;
 			news.Show();
@@ -66,7 +66,7 @@ namespace GG
 
 		private void UserToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Hide();
+			Hide();
 			User user = new User(username);
 			user.StartPosition = FormStartPosition.CenterScreen;
 			user.Show();
@@ -78,7 +78,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 0 where username = '" + username + "'";
+			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();

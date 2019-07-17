@@ -63,7 +63,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '" + ip + "' where username = '" + name + "'";
+			cmd.CommandText = "update dbo.GGusers set state = 1, ip = '" + ip + "' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 		}
 
@@ -134,6 +134,11 @@ namespace GG
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			Application.Exit();
+		}
+
+		private void Login_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

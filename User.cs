@@ -269,7 +269,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 0 where username = '" + username + "'";
+			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();
