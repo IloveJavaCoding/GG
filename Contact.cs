@@ -27,6 +27,7 @@ namespace GG
 
 		public void Data_bind(string username)
 		{
+			friendlist.Items.Clear();
 			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
@@ -55,6 +56,7 @@ namespace GG
 
 				friendlist.Items.Add(nickname + " | "+ sign + " | " + sta);
 			}
+			friendlist.Height = (num+1) * 16;
 			friendlist.EndUpdate();
 		}
 

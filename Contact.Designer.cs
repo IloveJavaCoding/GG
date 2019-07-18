@@ -94,15 +94,14 @@
 			this.friendlist.ItemHeight = 16;
 			this.friendlist.Location = new System.Drawing.Point(0, 31);
 			this.friendlist.Name = "friendlist";
-			this.friendlist.Size = new System.Drawing.Size(726, 228);
-			this.friendlist.Sorted = true;
+			this.friendlist.Size = new System.Drawing.Size(726, 276);
 			this.friendlist.TabIndex = 1;
 			this.friendlist.SelectedIndexChanged += new System.EventHandler(this.Firendlist_SelectedIndexChanged);
 			// 
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(660, 1);
+			this.pictureBox1.Location = new System.Drawing.Point(660, 2);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(66, 27);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -115,7 +114,7 @@
 			this.label1.BackColor = System.Drawing.Color.Silver;
 			this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.Color.Aqua;
-			this.label1.Location = new System.Drawing.Point(-3, -2);
+			this.label1.Location = new System.Drawing.Point(-1, 1);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(104, 30);
 			this.label1.TabIndex = 3;
@@ -125,10 +124,10 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 273);
+			this.dataGridView1.Location = new System.Drawing.Point(0, 325);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 23;
-			this.dataGridView1.Size = new System.Drawing.Size(726, 176);
+			this.dataGridView1.Size = new System.Drawing.Size(726, 124);
 			this.dataGridView1.TabIndex = 4;
 			// 
 			// imageList1
@@ -139,6 +138,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.BackColor = System.Drawing.Color.White;
 			this.panel1.Controls.Add(this.friendlist);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Controls.Add(this.pictureBox1);
