@@ -107,8 +107,7 @@
 			// label1
 			// 
 			this.label1.AutoEllipsis = true;
-			this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.label1.Enabled = false;
+			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("Algerian", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.ForeColor = System.Drawing.Color.White;
 			this.label1.Location = new System.Drawing.Point(85, 8);
@@ -140,6 +139,7 @@
 			// 
 			// panel3
 			// 
+			this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.panel3.Controls.Add(this.signature);
 			this.panel3.Controls.Add(this.pictureBox2);
 			this.panel3.Controls.Add(this.label1);

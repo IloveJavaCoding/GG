@@ -88,6 +88,7 @@ namespace GG
 			user.StartPosition = FormStartPosition.CenterScreen;
 			user.Show();
 		}
+
 		private void LogoutAccount()
 		{
 			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
@@ -109,9 +110,29 @@ namespace GG
 
 		private void Firendlist_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string friend_name = friendlist.SelectedItem.ToString();
-			MessageBox.Show(friend_name, "GG");
+			string item = friendlist.SelectedItem.ToString();
+			string nickname = item.Substring(0,item.IndexOf("|")).Trim();
+			string friend_name = Get_name_from_nick(username, nickname);
 
+			Friend_Info friend_Info = new Friend_Info(this, username, friend_name);
+			friend_Info.StartPosition = FormStartPosition.CenterScreen;
+			friend_Info.Show();
+		}
+
+		private string Get_name_from_nick(string username,string nickname)
+		{
+			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn.Open();
+
+			SqlCommand cmd = new SqlCommand("select * from GG_Friends where GG_Friends.username=@Username and GG_Friends.friend_nick=@NICK", conn);
+			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
+			cmd.Parameters.Add("@NICK", SqlDbType.VarChar, 50).Value = nickname;
+
+			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+			DataSet ds = new DataSet();
+			adapter.Fill(ds);
+
+			return ds.Tables[0].Rows[0][2].ToString();
 		}
 	}
 }

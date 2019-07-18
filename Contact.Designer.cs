@@ -40,9 +40,11 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -54,7 +56,7 @@
             this.userToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(800, 25);
+			this.menuStrip1.Size = new System.Drawing.Size(726, 25);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -90,9 +92,9 @@
 			this.friendlist.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.friendlist.FormattingEnabled = true;
 			this.friendlist.ItemHeight = 16;
-			this.friendlist.Location = new System.Drawing.Point(0, 61);
+			this.friendlist.Location = new System.Drawing.Point(0, 31);
 			this.friendlist.Name = "friendlist";
-			this.friendlist.Size = new System.Drawing.Size(800, 68);
+			this.friendlist.Size = new System.Drawing.Size(726, 228);
 			this.friendlist.Sorted = true;
 			this.friendlist.TabIndex = 1;
 			this.friendlist.SelectedIndexChanged += new System.EventHandler(this.Firendlist_SelectedIndexChanged);
@@ -100,7 +102,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(734, 28);
+			this.pictureBox1.Location = new System.Drawing.Point(660, 1);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(66, 27);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -113,9 +115,9 @@
 			this.label1.BackColor = System.Drawing.Color.Silver;
 			this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label1.ForeColor = System.Drawing.Color.Aqua;
-			this.label1.Location = new System.Drawing.Point(12, 28);
+			this.label1.Location = new System.Drawing.Point(-3, -2);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(91, 27);
+			this.label1.Size = new System.Drawing.Size(104, 30);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "Friends List";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,10 +125,10 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 275);
+			this.dataGridView1.Location = new System.Drawing.Point(0, 273);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 23;
-			this.dataGridView1.Size = new System.Drawing.Size(800, 175);
+			this.dataGridView1.Size = new System.Drawing.Size(726, 176);
 			this.dataGridView1.TabIndex = 4;
 			// 
 			// imageList1
@@ -135,16 +137,24 @@
 			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			this.imageList1.Images.SetKeyName(0, "choose.jpg");
 			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.friendlist);
+			this.panel1.Controls.Add(this.label1);
+			this.panel1.Controls.Add(this.pictureBox1);
+			this.panel1.Location = new System.Drawing.Point(0, 27);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(726, 422);
+			this.panel1.TabIndex = 5;
+			// 
 			// Contact
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(726, 450);
 			this.Controls.Add(this.dataGridView1);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.friendlist);
 			this.Controls.Add(this.menuStrip1);
+			this.Controls.Add(this.panel1);
 			this.ForeColor = System.Drawing.SystemColors.AppWorkspace;
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Contact";
@@ -155,6 +165,7 @@
 			this.menuStrip1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -172,5 +183,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.ImageList imageList1;
+		private System.Windows.Forms.Panel panel1;
 	}
 }

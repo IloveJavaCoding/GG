@@ -23,11 +23,20 @@ namespace GG
 		{
 			userToolStripMenuItem.Checked = true;
 			userToolStripMenuItem.BackColor = colors;
-			
+
+			//Backcolor_transparent();
 			Account_info_bind(username);
 			Change_shap();
-
+		
 			Load_imgs();
+		}
+
+		private void Backcolor_transparent()
+		{
+			pictureBox1.SendToBack();
+			change_bg.BackColor = Color.Transparent;
+			change_bg.Parent = pictureBox1;
+			change_bg.BringToFront();
 		}
 
 		private void Load_imgs()

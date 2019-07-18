@@ -17,3 +17,4 @@ D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Edit_account.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Forget_password.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Change_password.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Add_friend.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Friend_Info.resources
