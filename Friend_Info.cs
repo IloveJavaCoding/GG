@@ -49,7 +49,7 @@ namespace GG
 
 		private void Data_Loading(string username, string friendname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers, GG_Friends where GG_Friends.username=@Username and GG_Friends.friend_name=@FN and GGusers.username=GG_Friends.friend_name", conn);
@@ -94,7 +94,7 @@ namespace GG
 
 		private string Get_bgname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -112,7 +112,7 @@ namespace GG
 
 		private string Get_portraitname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -170,7 +170,7 @@ namespace GG
 
 		private void Update_nickneame(string username, string friendname, string nickname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
@@ -180,5 +180,12 @@ namespace GG
 			cmd.Dispose();
 			conn.Close();
 		}
-	}
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Chatroom chatroom = new Chatroom(username, friendname);
+            chatroom.Show();
+        }
+    }
 }
