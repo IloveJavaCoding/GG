@@ -2,16 +2,12 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace GG
 {
 	public partial class Login : Form
 	{
-		public const int HASH_BYTE_SIZE = 32;
-		public const int PBKDF2_ITERATIONS = 1000;
-
 		public Login()
 		{
 			InitializeComponent();
@@ -20,7 +16,7 @@ namespace GG
 
 		private void B_login_Click(object sender, EventArgs e)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -36,7 +32,7 @@ namespace GG
 			}
 			else
 			{
-				if(ds.Tables[0].Rows[0][3].ToString().Equals(Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
+				if(ds.Tables[0].Rows[0][3].ToString().Equals(CommonHandler.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
 				{
 					this.Hide();
 					LoginAccount(username.Text);
@@ -52,21 +48,6 @@ namespace GG
 
 			cmd.Dispose();
 			conn.Close();
-		}
-
-		private string Get_hash(string password, string str)
-		{
-			byte[] salt = Convert.FromBase64String(str);
-			byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
-
-			return Convert.ToBase64String(hash, 0, 24);
-		}
-
-		private static byte[] PBKDF2(string password, byte[] salt, int iterations, int outputBytes)
-		{
-			Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt);
-			pbkdf2.IterationCount = iterations;
-			return pbkdf2.GetBytes(outputBytes);
 		}
 
 		private void Register_Click(object sender, EventArgs e)
@@ -96,28 +77,13 @@ namespace GG
 
 		private void LoginAccount(string name)
 		{
-			string ip = Get_Host_IP();
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			string ip = NetworkHandler.GetLocalIP();
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '"+ip+"' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
-		}
-
-		private string Get_Host_IP()
-		{
-			string ipv4="";
-			string hostName = Dns.GetHostName();
-			IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
-			for (int i = 0; i < iPHostEntry.AddressList.Length; i++)
-			{
-				if (iPHostEntry.AddressList[i].AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-				{
-					ipv4 = iPHostEntry.AddressList[i].ToString();//IPv4
-				}
-			}
-			return ipv4;
 		}
 
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)

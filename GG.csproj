@@ -46,12 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chatroom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chatroom.Designer.cs">
+      <DependentUpon>Chatroom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonHandler.cs" />
     <Compile Include="Contact.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Contact.Designer.cs">
       <DependentUpon>Contact.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseHandler.cs" />
     <Compile Include="Edit_account.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +78,7 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="NetworkHandler.cs" />
     <Compile Include="News.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +99,9 @@
     <Compile Include="User.Designer.cs">
       <DependentUpon>User.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Chatroom.resx">
+      <DependentUpon>Chatroom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Contact.resx">
       <DependentUpon>Contact.cs</DependentUpon>
     </EmbeddedResource>
