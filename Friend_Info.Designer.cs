@@ -1,0 +1,211 @@
+﻿namespace GG
+{
+	partial class Friend_Info
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.l_gender = new System.Windows.Forms.Label();
+			this.l_birthday = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
+			this.l_sign = new System.Windows.Forms.Label();
+			this.l_name = new System.Windows.Forms.Label();
+			this.portrait_img = new System.Windows.Forms.PictureBox();
+			this.l_nick = new System.Windows.Forms.Label();
+			this.bg_img = new System.Windows.Forms.PictureBox();
+			this.tb_nick = new System.Windows.Forms.TextBox();
+			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.portrait_img)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bg_img)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.Transparent;
+			this.panel1.Controls.Add(this.tb_nick);
+			this.panel1.Controls.Add(this.panel2);
+			this.panel1.Controls.Add(this.button2);
+			this.panel1.Controls.Add(this.button1);
+			this.panel1.Controls.Add(this.l_sign);
+			this.panel1.Controls.Add(this.l_name);
+			this.panel1.Controls.Add(this.portrait_img);
+			this.panel1.Controls.Add(this.l_nick);
+			this.panel1.Controls.Add(this.bg_img);
+			this.panel1.Location = new System.Drawing.Point(-1, 1);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(479, 359);
+			this.panel1.TabIndex = 0;
+			// 
+			// panel2
+			// 
+			this.panel2.BackColor = System.Drawing.Color.LightGray;
+			this.panel2.Controls.Add(this.l_gender);
+			this.panel2.Controls.Add(this.l_birthday);
+			this.panel2.Location = new System.Drawing.Point(142, 179);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(102, 12);
+			this.panel2.TabIndex = 9;
+			// 
+			// l_gender
+			// 
+			this.l_gender.AutoSize = true;
+			this.l_gender.ForeColor = System.Drawing.Color.White;
+			this.l_gender.Location = new System.Drawing.Point(58, 0);
+			this.l_gender.Name = "l_gender";
+			this.l_gender.Size = new System.Drawing.Size(41, 12);
+			this.l_gender.TabIndex = 3;
+			this.l_gender.Text = "gender";
+			// 
+			// l_birthday
+			// 
+			this.l_birthday.AutoSize = true;
+			this.l_birthday.ForeColor = System.Drawing.Color.White;
+			this.l_birthday.Location = new System.Drawing.Point(1, 0);
+			this.l_birthday.Name = "l_birthday";
+			this.l_birthday.Size = new System.Drawing.Size(53, 12);
+			this.l_birthday.TabIndex = 4;
+			this.l_birthday.Text = "birthday";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(285, 287);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(109, 32);
+			this.button2.TabIndex = 8;
+			this.button2.Text = "Modify Remark";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.Button2_Click);
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Blue;
+			this.button1.ForeColor = System.Drawing.Color.White;
+			this.button1.Location = new System.Drawing.Point(66, 287);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(114, 32);
+			this.button1.TabIndex = 7;
+			this.button1.Text = "Send Message";
+			this.button1.UseVisualStyleBackColor = false;
+			// 
+			// l_sign
+			// 
+			this.l_sign.Location = new System.Drawing.Point(-2, 210);
+			this.l_sign.Name = "l_sign";
+			this.l_sign.Size = new System.Drawing.Size(481, 22);
+			this.l_sign.TabIndex = 6;
+			this.l_sign.Text = "signature";
+			this.l_sign.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// l_name
+			// 
+			this.l_name.BackColor = System.Drawing.Color.Transparent;
+			this.l_name.Font = new System.Drawing.Font("华文楷体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.l_name.ForeColor = System.Drawing.Color.White;
+			this.l_name.Location = new System.Drawing.Point(159, 130);
+			this.l_name.Name = "l_name";
+			this.l_name.Size = new System.Drawing.Size(150, 27);
+			this.l_name.TabIndex = 5;
+			this.l_name.Text = "username";
+			this.l_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// portrait_img
+			// 
+			this.portrait_img.BackColor = System.Drawing.Color.Transparent;
+			this.portrait_img.Location = new System.Drawing.Point(196, 52);
+			this.portrait_img.Name = "portrait_img";
+			this.portrait_img.Size = new System.Drawing.Size(75, 75);
+			this.portrait_img.TabIndex = 1;
+			this.portrait_img.TabStop = false;
+			// 
+			// l_nick
+			// 
+			this.l_nick.AutoSize = true;
+			this.l_nick.Location = new System.Drawing.Point(260, 179);
+			this.l_nick.Name = "l_nick";
+			this.l_nick.Size = new System.Drawing.Size(29, 12);
+			this.l_nick.TabIndex = 2;
+			this.l_nick.Text = "nick";
+			// 
+			// bg_img
+			// 
+			this.bg_img.BackColor = System.Drawing.SystemColors.Control;
+			this.bg_img.Location = new System.Drawing.Point(-3, -3);
+			this.bg_img.Name = "bg_img";
+			this.bg_img.Size = new System.Drawing.Size(482, 361);
+			this.bg_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.bg_img.TabIndex = 0;
+			this.bg_img.TabStop = false;
+			// 
+			// tb_nick
+			// 
+			this.tb_nick.BackColor = System.Drawing.Color.White;
+			this.tb_nick.Location = new System.Drawing.Point(262, 176);
+			this.tb_nick.Name = "tb_nick";
+			this.tb_nick.Size = new System.Drawing.Size(100, 21);
+			this.tb_nick.TabIndex = 10;
+			this.tb_nick.Visible = false;
+			this.tb_nick.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tb_nick_KeyDown);
+			// 
+			// Friend_Info
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(477, 360);
+			this.Controls.Add(this.panel1);
+			this.MaximizeBox = false;
+			this.Name = "Friend_Info";
+			this.Text = "GG";
+			this.Load += new System.EventHandler(this.Friend_Info_Load);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.portrait_img)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bg_img)).EndInit();
+			this.ResumeLayout(false);
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Label l_sign;
+		private System.Windows.Forms.Label l_name;
+		private System.Windows.Forms.Label l_birthday;
+		private System.Windows.Forms.Label l_gender;
+		private System.Windows.Forms.Label l_nick;
+		private System.Windows.Forms.PictureBox portrait_img;
+		private System.Windows.Forms.PictureBox bg_img;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.TextBox tb_nick;
+	}
+}

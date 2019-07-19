@@ -28,12 +28,23 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Contact));
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.friendlist = new System.Windows.Forms.ListBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.menuStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -45,7 +56,7 @@
             this.userToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(800, 25);
+			this.menuStrip1.Size = new System.Drawing.Size(726, 25);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -76,12 +87,75 @@
 			this.userToolStripMenuItem.Text = "User";
 			this.userToolStripMenuItem.Click += new System.EventHandler(this.UserToolStripMenuItem_Click);
 			// 
+			// friendlist
+			// 
+			this.friendlist.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.friendlist.FormattingEnabled = true;
+			this.friendlist.ItemHeight = 16;
+			this.friendlist.Location = new System.Drawing.Point(0, 31);
+			this.friendlist.Name = "friendlist";
+			this.friendlist.Size = new System.Drawing.Size(726, 276);
+			this.friendlist.TabIndex = 1;
+			this.friendlist.SelectedIndexChanged += new System.EventHandler(this.Firendlist_SelectedIndexChanged);
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.Location = new System.Drawing.Point(660, 2);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(66, 27);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox1.TabIndex = 2;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
+			// 
+			// label1
+			// 
+			this.label1.BackColor = System.Drawing.Color.Silver;
+			this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label1.ForeColor = System.Drawing.Color.Aqua;
+			this.label1.Location = new System.Drawing.Point(-1, 1);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(104, 30);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "Friends List";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(0, 325);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowTemplate.Height = 23;
+			this.dataGridView1.Size = new System.Drawing.Size(726, 124);
+			this.dataGridView1.TabIndex = 4;
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "choose.jpg");
+			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.White;
+			this.panel1.Controls.Add(this.friendlist);
+			this.panel1.Controls.Add(this.label1);
+			this.panel1.Controls.Add(this.pictureBox1);
+			this.panel1.Location = new System.Drawing.Point(0, 27);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(726, 422);
+			this.panel1.TabIndex = 5;
+			// 
 			// Contact
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(726, 450);
+			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.menuStrip1);
+			this.Controls.Add(this.panel1);
+			this.ForeColor = System.Drawing.SystemColors.AppWorkspace;
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Contact";
 			this.Text = "Homepage";
@@ -89,6 +163,9 @@
 			this.Load += new System.EventHandler(this.Contact_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -101,5 +178,11 @@
 		private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
+		private System.Windows.Forms.ListBox friendlist;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.ImageList imageList1;
+		private System.Windows.Forms.Panel panel1;
 	}
 }

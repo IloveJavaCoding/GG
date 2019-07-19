@@ -11,7 +11,7 @@ namespace GG
 		public Login()
 		{
 			InitializeComponent();
-			this.StartPosition = FormStartPosition.CenterScreen;
+			StartPosition = FormStartPosition.CenterScreen;
 		}
 
 		private void B_login_Click(object sender, EventArgs e)
@@ -35,9 +35,11 @@ namespace GG
 				if(ds.Tables[0].Rows[0][3].ToString().Equals(CommonHandler.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
 				{
 					this.Hide();
-					LoginAccount(username.Text);
-					Homepage homepage = new Homepage(username.Text);
-					homepage.StartPosition = FormStartPosition.CenterScreen;
+					updateStatus(username.Text);
+					Homepage homepage = new Homepage(username.Text)
+					{
+						StartPosition = FormStartPosition.CenterScreen
+					};
 					homepage.Show();
 				}
 				else
@@ -50,12 +52,35 @@ namespace GG
 			conn.Close();
 		}
 
+		private void updateStatus(string name)
+		{
+			string ip = NetworkHandler.GetLocalIP();
+			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
+			conn.Open();
+
+			SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = "update dbo.GGusers set state = 1, ip = '" + ip + "' where username = '" + name + "'";
+			cmd.ExecuteNonQuery();
+		}
+
 		private void Register_Click(object sender, EventArgs e)
 		{
 			this.Hide();
-			Register register = new Register();
-			register.StartPosition = FormStartPosition.CenterScreen;
+			Register register = new Register
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			register.Show();
+		}
+
+		private void Forget_pass_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			Forget_password forget = new Forget_password
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
+			forget.Show();
 		}
 
 		private void Cb1_CheckedChanged(object sender, EventArgs e)
@@ -73,17 +98,6 @@ namespace GG
 		private void Login_Load(object sender, EventArgs e)
 		{
 
-		}
-
-		private void LoginAccount(string name)
-		{
-			string ip = NetworkHandler.GetLocalIP();
-			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
-			conn.Open();
-
-			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set statue = 1, ip = '"+ip+"' where username = '" + name + "'";
-			cmd.ExecuteNonQuery();
 		}
 
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)
