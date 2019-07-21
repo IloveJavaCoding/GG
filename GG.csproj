@@ -125,6 +125,7 @@
     </Compile>
     <EmbeddedResource Include="Chatroom.resx">
       <DependentUpon>Chatroom.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Users.cs" />
     <EmbeddedResource Include="Add_friend.resx">
       <DependentUpon>Add_friend.cs</DependentUpon>
