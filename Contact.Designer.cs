@@ -41,6 +41,8 @@
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.listView = new System.Windows.Forms.ListView();
+			this.imageList2 = new System.Windows.Forms.ImageList(this.components);
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -94,7 +96,7 @@
 			this.friendlist.ItemHeight = 16;
 			this.friendlist.Location = new System.Drawing.Point(0, 31);
 			this.friendlist.Name = "friendlist";
-			this.friendlist.Size = new System.Drawing.Size(726, 276);
+			this.friendlist.Size = new System.Drawing.Size(726, 132);
 			this.friendlist.TabIndex = 1;
 			this.friendlist.SelectedIndexChanged += new System.EventHandler(this.Firendlist_SelectedIndexChanged);
 			// 
@@ -124,10 +126,10 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 325);
+			this.dataGridView1.Location = new System.Drawing.Point(0, 370);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 23;
-			this.dataGridView1.Size = new System.Drawing.Size(726, 124);
+			this.dataGridView1.Size = new System.Drawing.Size(726, 79);
 			this.dataGridView1.TabIndex = 4;
 			// 
 			// imageList1
@@ -139,6 +141,7 @@
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.White;
+			this.panel1.Controls.Add(this.listView);
 			this.panel1.Controls.Add(this.friendlist);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Controls.Add(this.pictureBox1);
@@ -146,6 +149,21 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(726, 422);
 			this.panel1.TabIndex = 5;
+			// 
+			// listView
+			// 
+			this.listView.Location = new System.Drawing.Point(0, 169);
+			this.listView.MultiSelect = false;
+			this.listView.Name = "listView";
+			this.listView.Size = new System.Drawing.Size(726, 149);
+			this.listView.TabIndex = 4;
+			this.listView.UseCompatibleStateImageBehavior = false;
+			// 
+			// imageList2
+			// 
+			this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// Contact
 			// 
@@ -184,5 +202,7 @@
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.ListView listView;
+		private System.Windows.Forms.ImageList imageList2;
 	}
 }
