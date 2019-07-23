@@ -296,5 +296,9 @@ namespace GG
 			Application.Exit();
 		}
 
-	}
+        private void UserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

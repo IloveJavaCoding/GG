@@ -14,3 +14,24 @@ C:\Users\94714\workspace\GG\obj\Debug\GG.csproj.GenerateResource.cache
 C:\Users\94714\workspace\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
 C:\Users\94714\workspace\GG\obj\Debug\GG.exe
 C:\Users\94714\workspace\GG\obj\Debug\GG.pdb
+E:\大三 下\SWE310 Programming Elective II\demo\GG\bin\Debug\GG.exe.config
+E:\大三 下\SWE310 Programming Elective II\demo\GG\bin\Debug\GG.exe
+E:\大三 下\SWE310 Programming Elective II\demo\GG\bin\Debug\GG.pdb
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.csprojAssemblyReference.cache
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Chatroom.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Add_friend.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Change_password.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Contact.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Edit_account.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Forget_password.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Friend_Info.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Homepage.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Login.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.News.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Properties.Resources.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.Register.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.User.resources
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.csproj.GenerateResource.cache
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.exe
+E:\大三 下\SWE310 Programming Elective II\demo\GG\obj\Debug\GG.pdb
