@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace GG
@@ -76,63 +74,16 @@ namespace GG
             l_nick.Text = ds.Tables[0].Rows[0][18].ToString();
             l_sign.Text = ds.Tables[0].Rows[0][9].ToString();
 
-            string bgname = Get_bgname(friendname);
-            if (bgname.Equals(""))
-            {
-                bgname = "default1.jpg";
-            }
-            bg_img.Image = Load_image(bgname);
-
-            string portrait = Get_portraitname(friendname);
-            if (portrait.Equals(""))
-            {
-                portrait = "default2.jpg";
-            }
-            portrait_img.Image = Load_image(portrait);
+            bg_img.Image = Load_image("user_background");
+            portrait_img.Image = Load_image("user_avatar");
             functions.Change_shap(portrait_img);
         }
 
-        private Image Load_image(string filename)
+        private Image Load_image(string imgType)
         {
-            WebClient webClient = new WebClient();
-            string url = "http://localhost:55607/database/" + filename;
-            var bytes = webClient.DownloadData(url);
+            var bytes = DatabaseHandler.SelectPicture(friendname, imgType);
 
             return Image.FromStream(new MemoryStream(bytes));
-        }
-
-        private string Get_bgname(string username)
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
-            cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-
-            cmd.Dispose();
-            conn.Close();
-
-            return ds.Tables[0].Rows[0][13].ToString();
-        }
-
-        private string Get_portraitname(string username)
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
-            cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-
-            cmd.Dispose();
-            conn.Close();
-
-            return ds.Tables[0].Rows[0][14].ToString();
         }
 
         private void Button2_Click(object sender, EventArgs e)

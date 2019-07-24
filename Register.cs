@@ -34,6 +34,18 @@ namespace GG
 
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
+
+                string avatarStr = CommonHandler.ImgToBase64String("../../Image/default_avatar.png");
+                string backgroundStr = CommonHandler.ImgToBase64String("../../Image/default_background.png");
+
+                SqlCommand insert = new SqlCommand("insert into user_picture (username, user_avatar, user_background) values(@UN, @UA, @UB)", conn);
+                insert.Parameters.Add("@UN", SqlDbType.VarChar).Value = tb1.Text;
+                insert.Parameters.Add("@UA", SqlDbType.VarChar).Value = avatarStr;
+                insert.Parameters.Add("@UB", SqlDbType.VarChar).Value = backgroundStr;
+
+                insert.ExecuteNonQuery();
+                insert.Dispose();
+
 				conn.Close();
 
 				MessageBox.Show("Register successfully!", "STATE");
