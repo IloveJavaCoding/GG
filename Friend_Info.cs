@@ -10,6 +10,9 @@ namespace GG
 {
 	public partial class Friend_Info : Form
 	{
+		Functions functions;
+		private SqlConnection conn;
+
 		protected Contact main_info;
 		protected string username;
 		protected string friendname;
@@ -19,6 +22,9 @@ namespace GG
 			this.username = username;
 			this.friendname = friendname;
 			InitializeComponent();
+
+			functions = new Functions();
+			conn = functions.conn;
 		}
 
 		private void Friend_Info_Load(object sender, EventArgs e)
@@ -49,17 +55,18 @@ namespace GG
 
 		private void Data_Loading(string username, string friendname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers, GG_Friends where GG_Friends.username=@Username and GG_Friends.friend_name=@FN and GGusers.username=GG_Friends.friend_name", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 			cmd.Parameters.Add("@FN", SqlDbType.VarChar, 50).Value = friendname;
 
-
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
+
+			cmd.Dispose();
+			conn.Close();
 
 			l_name.Text = friendname; 
 			l_gender.Text = ds.Tables[0].Rows[0][5].ToString();
@@ -80,7 +87,7 @@ namespace GG
 				portrait = "default2.jpg";
 			}
 			portrait_img.Image = Load_image(portrait);
-			Change_shap(portrait_img);
+			functions.Change_shap(portrait_img);
 		}
 
 		private Image Load_image(string filename)
@@ -94,7 +101,6 @@ namespace GG
 
 		private string Get_bgname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -112,7 +118,6 @@ namespace GG
 
 		private string Get_portraitname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -126,29 +131,6 @@ namespace GG
 			conn.Close();
 
 			return ds.Tables[0].Rows[0][14].ToString();
-		}
-
-		private void Change_shap(PictureBox portrait_img)
-		{
-			Image image = portrait_img.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			portrait_img.Image = image1;
-		}
-
-		private Image CutEllipse(Image img, Rectangle rec, Size size)
-		{
-			Bitmap bitmap = new Bitmap(size.Width, size.Height);
-			using (Graphics g = Graphics.FromImage(bitmap))
-			{
-				using (TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
-				{
-					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
-					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-					g.FillEllipse(br, new Rectangle(Point.Empty, size));
-				}
-			}
-
-			return bitmap;
 		}
 
 		private void Button2_Click(object sender, EventArgs e)
@@ -170,7 +152,6 @@ namespace GG
 
 		private void Update_nickneame(string username, string friendname, string nickname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
