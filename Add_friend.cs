@@ -39,7 +39,7 @@ namespace GG
 			{
 				conn.Open();
 
-				SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+				SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 				cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = search_name;
 
 				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -85,7 +85,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GG_Friends where username=@Username and friend_name=@FUN", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_friends where username=@Username and friend_name=@FUN", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 			cmd.Parameters.Add("@FUN", SqlDbType.VarChar, 50).Value = search_name;
 
@@ -156,10 +156,8 @@ namespace GG
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
-			int num = Get_num_all_friends() + 1;
-			Add_Firends(num, username, l_name.Text);//self
-			num++;
-			Add_Firends(num, l_name.Text, username);//friend
+			Add_Firends(username, l_name.Text);//self
+			Add_Firends(l_name.Text, username);//friend
 
 			MessageBox.Show("Add successfully!", "GG");
 
@@ -168,37 +166,24 @@ namespace GG
 			result.Visible = false;
 		}
 
-		private void Add_Firends(int num, string username, string friendname)
+		private void Add_Firends(string username, string friendname)
 		{
-			conn.Open();
+            bool connUsing = true;
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+                connUsing = false;
+            }
 
-			SqlCommand cmd = new SqlCommand("insert into GG_Friends(id,username,friend_name,friend_nick) values(" + num + ",@UN, @FUN, @FNN)", conn);
+            SqlCommand cmd = new SqlCommand("insert into user_friends(username,friend_name,friend_nick) values(@UN, @FUN, @FNN)", conn);
 			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = username;
 			cmd.Parameters.Add("@FUN", SqlDbType.VarChar, 50).Value = friendname;
 			cmd.Parameters.Add("@FNN", SqlDbType.VarChar, 50).Value = friendname;//default
 
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-			conn.Close();
-		}
-
-		private int Get_num_all_friends()
-		{
-			conn.Open();
-			SqlCommand cmd = new SqlCommand("select * from GG_Friends", conn);
-			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-			DataSet ds = new DataSet();
-			adapter.Fill(ds);
-
-			cmd.Dispose();
-			conn.Close();
-
-			return ds.Tables[0].Rows.Count;
-		}
-
-		private void Add_friend_Load(object sender, EventArgs e)
-		{
-
-		}
+            if (!connUsing)
+                conn.Close();
+        }
 	}
 }

@@ -13,7 +13,9 @@ namespace GG
 		protected string username = "";
 		protected Color colors;
 
-		public Homepage(string name)
+        public static ClientService client = new ClientService();
+
+        public Homepage(string name)
 		{
 			InitializeComponent();
 			username = name;

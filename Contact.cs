@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -12,7 +13,10 @@ namespace GG
 		protected SqlConnection conn;
 		protected string username = "";
 		protected Color colors;
-		public Contact(string name)
+
+        public static Dictionary<string, Chatroom> chatKey = new Dictionary<string, Chatroom>();
+
+        public Contact(string name)
 		{
 			InitializeComponent();
 			username = name;
@@ -33,9 +37,14 @@ namespace GG
 		public void Data_bind(string username)
 		{
 			friendlist.Items.Clear();
-			conn.Open();
+            bool connUsing = true;
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+                connUsing = false;
+            }
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers, GG_Friends where GG_Friends.username=@Username and GGusers.username=GG_Friends.friend_name", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info, user_friends where user_friends.username=@Username and user_info.username=user_friends.friend_name", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -44,7 +53,8 @@ namespace GG
 
 
 			cmd.Dispose();
-			conn.Close();
+            if(!connUsing)
+			    conn.Close();
 			dataGridView1.DataSource = ds.Tables[0].DefaultView;
 
 			int num = ds.Tables[0].Rows.Count;
@@ -120,7 +130,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GG_Friends where GG_Friends.username=@Username and GG_Friends.friend_nick=@NICK", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_friends where user_friends.username=@Username and user_friends.friend_nick=@NICK", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 			cmd.Parameters.Add("@NICK", SqlDbType.VarChar, 50).Value = nickname;
 

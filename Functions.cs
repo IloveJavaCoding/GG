@@ -17,7 +17,7 @@ namespace GG
 
 		public Functions()
 		{
-			conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			conn = new SqlConnection(@"Server=MRD\SQLEXPRESS;database=IMS;UId=admin;password=aaaa");
 			colors = Color.FromArgb(112, 224, 255);
 		}
 
@@ -89,7 +89,7 @@ namespace GG
 		{
 			conn.Open();
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
+			cmd.CommandText = "update dbo.user_info set status = 0 where username = '" + username + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();

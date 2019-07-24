@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace GG
@@ -102,6 +104,28 @@ namespace GG
             }
 
             return messageSet;
+        }
+
+        public ListView updateListView(ImageList imageList, ArrayList contentList)
+        {
+            ListView listView = new ListView();
+
+            listView.View = View.LargeIcon;
+            listView.LargeImageList = imageList;
+
+            listView.BeginUpdate();
+            int i = 0;
+            foreach (string content in contentList)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.ImageIndex = i;
+                lvi.Text = content;
+                listView.Items.Add(lvi);
+                i++;
+            }
+            listView.EndUpdate();
+
+            return listView;
         }
     }
 }

@@ -81,7 +81,7 @@ namespace GG
 	
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = name;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -122,7 +122,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -139,7 +139,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -192,7 +192,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set portrait = '" + portraits + "' where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set portrait = '" + portraits + "' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();
@@ -225,7 +225,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set bgname = '"+ bg +"' where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set bgname = '"+ bg +"' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();

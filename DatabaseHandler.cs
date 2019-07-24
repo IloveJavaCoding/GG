@@ -12,8 +12,6 @@ namespace GG
     {
         private static readonly SqlConnection conn
             = new SqlConnection(@"Server=MRD\SQLEXPRESS;Database=IMS;UId=admin;Password=aaaa");
-        public static readonly string connString_zsl
-            = @"Server=NEPALESE\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857";
 
         /// <summary>
         /// 选取相关用户的消息记录

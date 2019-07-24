@@ -183,7 +183,6 @@
 			this.Controls.Add(this.panel1);
 			this.Name = "Add_friend";
 			this.Text = "Add_friend";
-			this.Load += new System.EventHandler(this.Add_friend_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.panel2.ResumeLayout(false);

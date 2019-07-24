@@ -21,12 +21,11 @@ namespace GG
 		{
 			if (Valide(tb1.Text, tb2.Text, tb3.Text))
 			{
-				int num = Get_user_num() + 1;
 				string ipv4 = functions.Get_Host_IP();
 				string salt = functions.Get_salt();
 				conn.Open();
 
-				SqlCommand cmd = new SqlCommand("insert into GGusers(id,username,salt,hash,state,ip,answer) values(" + num +",@UN, @SALT, @HASH,0,@IP,@AS)", conn);
+				SqlCommand cmd = new SqlCommand("insert into user_info(username,salt,hash,status,ip,answer) values(@UN, @SALT, @HASH,0,@IP,@AS)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
 				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(tb2.Text,salt);
@@ -54,32 +53,22 @@ namespace GG
 			homepage.Show();
 		}
 
-		private int Get_user_num()
-		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
-
-			SqlCommand cmd = new SqlCommand("select * from GGusers", conn);
-			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-			DataSet ds = new DataSet();
-			adapter.Fill(ds);
-
-			return ds.Tables[0].Rows.Count;
-		}
-
 		private bool Judge_username(string name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username = @UN", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username = @UN", conn);
 			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = name;
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
 			int num = ds.Tables[0].Rows.Count;
-			if (num > 0)
+            ds.Dispose();
+            adapter.Dispose();
+            conn.Close();
+
+            if (num > 0)
 			{
 				return false;
 			}
@@ -163,7 +152,7 @@ namespace GG
 		{
 			conn.Open();
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 1 where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set status = 1 where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();

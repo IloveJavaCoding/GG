@@ -52,7 +52,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = name;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -74,7 +74,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("update dbo.GGusers set gender=@GN, age=@AG, birthday=@BD, address=@AD, signature=@SG, blood=@BL where username=@UN", conn);
+			SqlCommand cmd = new SqlCommand("update dbo.user_info set gender=@GN, age=@AG, birthday=@BD, address=@AD, signature=@SG, blood=@BL where username=@UN", conn);
 			cmd.Parameters.Add("@GN", SqlDbType.VarChar, 10).Value = cb_gender.SelectedValue;
 			cmd.Parameters.Add("@AG", SqlDbType.VarChar, 10).Value = tb_age.Text;
 			cmd.Parameters.Add("@BD", SqlDbType.VarChar, 50).Value = tb_birthday.Text;
