@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
 using System.Windows.Forms;
 
 namespace GG
 {
 	public partial class Login : Form
 	{
+		Functions functions; 
+		private SqlConnection conn;
+
 		public Login()
 		{
 			InitializeComponent();
 			StartPosition = FormStartPosition.CenterScreen;
+			functions = new Functions();
+			conn = functions.conn;
 		}
 
 		private void B_login_Click(object sender, EventArgs e)
 		{
-			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -26,41 +29,48 @@ namespace GG
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
-			if(ds.Tables[0].Rows.Count == 0)
+			cmd.Dispose();
+			conn.Close();
+
+			if (ds.Tables[0].Rows.Count == 0)
 			{
 				MessageBox.Show("Username no find!!!", "GG");
 			}
 			else
 			{
-				if(ds.Tables[0].Rows[0][3].ToString().Equals(CommonHandler.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
+				if(ds.Tables[0].Rows[0][3].ToString().Equals(functions.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
 				{
-					this.Hide();
-					updateStatus(username.Text);
-					Homepage homepage = new Homepage(username.Text)
-					{
-						StartPosition = FormStartPosition.CenterScreen
-					};
-					homepage.Show();
+					Hide();
+					Login_Account(username.Text);
+					Go_to_homepage(username.Text);
 				}
 				else
 				{
 					MessageBox.Show("Login fail!!!", "GG");
 				}
 			}
-
-			cmd.Dispose();
-			conn.Close();
 		}
 
-		private void updateStatus(string name)
+		private void Go_to_homepage(string username)
 		{
-			string ip = NetworkHandler.GetLocalIP();
-			SqlConnection conn = new SqlConnection(DatabaseHandler.connString_zsl);
+			Homepage homepage = new Homepage(username)
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
+			homepage.Show();
+		}
+
+		private void Login_Account(string name)
+		{
+			string ip = functions.Get_Host_IP();
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "update dbo.GGusers set state = 1, ip = '" + ip + "' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
+
+			cmd.Dispose();
+			conn.Close();
 		}
 
 		private void Register_Click(object sender, EventArgs e)
@@ -93,11 +103,6 @@ namespace GG
 			{
 				password.PasswordChar = '*';
 			}
-		}
-
-		private void Login_Load(object sender, EventArgs e)
-		{
-
 		}
 
 		private void Login_FormClosed(object sender, FormClosedEventArgs e)

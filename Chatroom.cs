@@ -37,6 +37,7 @@ namespace GG
             localUser = user;
             remoteUser = friend;
             updateContent();
+            Text = friend;
 
             localIP = NetworkHandler.GetLocalIP(); //获取本地IP
             remoteEndPoint = NetworkHandler.BindEndPoint(serverIP, serverPort); //获取服务器端点
@@ -144,12 +145,19 @@ namespace GG
             //调用发送信息套接字发送字节数组
             socketSender.Send(arrSendMsg);
             textBox3.Text += sender + ": " + time + "\r\n" + value + "\r\n";
+            textBox4.Text = "";
         }
 
         private void Chatroom_FormClosed(object sender, FormClosedEventArgs e)
         {
             socketSender.Disconnect(false);
             Application.Exit();
+        }
+
+        private void TextBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox3.SelectionStart = textBox3.Text.Length;
+            textBox3.ScrollToCaret();
         }
     }
 }

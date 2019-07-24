@@ -90,6 +90,7 @@
     <Compile Include="Friend_Info.Designer.cs">
       <DependentUpon>Friend_Info.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functions.cs" />
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
     </Compile>

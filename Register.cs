@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace GG
 {
 	public partial class Register : Form
 	{
-		public const int SALT_BYTE_SIZE = 32;
-		public const int HASH_BYTE_SIZE = 32;
-		public const int PBKDF2_ITERATIONS = 1000;
+		Functions functions;
+		protected SqlConnection conn;
+
 		public Register()
 		{
 			InitializeComponent();
-		}
-
-		private void Register_Load(object sender, EventArgs e)
-		{
-
+			functions = new Functions();
+			conn = functions.conn;
 		}
 
 		private void Button1_Click(object sender, EventArgs e)
@@ -27,15 +22,14 @@ namespace GG
 			if (Valide(tb1.Text, tb2.Text, tb3.Text))
 			{
 				int num = Get_user_num() + 1;
-				string ipv4 = Get_Host_IP();
-				string salt = Get_salt();
-				SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+				string ipv4 = functions.Get_Host_IP();
+				string salt = functions.Get_salt();
 				conn.Open();
 
 				SqlCommand cmd = new SqlCommand("insert into GGusers(id,username,salt,hash,state,ip,answer) values(" + num +",@UN, @SALT, @HASH,0,@IP,@AS)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
-				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = Get_hash(tb2.Text,salt);
+				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(tb2.Text,salt);
 				cmd.Parameters.Add("@IP", SqlDbType.VarChar, 50).Value = ipv4;
 				cmd.Parameters.Add("@AS", SqlDbType.VarChar, 50).Value = tb4.Text;
 
@@ -45,32 +39,19 @@ namespace GG
 
 				MessageBox.Show("Register successfully!", "STATE");
 
-				ToHomePage(tb1.Text);
+				To_HomePage(tb1.Text);
 			}
 		}
 
-		private void ToHomePage(string name)
+		private void To_HomePage(string username)
 		{
-			this.Hide();
-			LoginAccount(name);
-			Homepage homepage = new Homepage(name);
-			homepage.StartPosition = FormStartPosition.CenterScreen;
-			homepage.Show();
-		}
-
-		private string Get_Host_IP()
-		{
-			string ipv4 = "";
-			string hostName = Dns.GetHostName();
-			IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
-			for (int i = 0; i < iPHostEntry.AddressList.Length; i++)
+			Hide();
+			LoginAccount(username);
+			Homepage homepage = new Homepage(username)
 			{
-				if (iPHostEntry.AddressList[i].AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-				{
-					ipv4 = iPHostEntry.AddressList[i].ToString();//IPv4
-				}
-			}
-			return ipv4;
+				StartPosition = FormStartPosition.CenterScreen
+			};
+			homepage.Show();
 		}
 
 		private int Get_user_num()
@@ -141,30 +122,6 @@ namespace GG
 			return true;
 		}
 
-		private string Get_salt()
-		{
-			RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
-			byte[] salt = new byte[SALT_BYTE_SIZE];
-			csprng.GetBytes(salt);
-
-			return Convert.ToBase64String(salt, 0, 24); ;
-		}
-
-		private string Get_hash(string password, string str)
-		{
-			byte[] salt = Convert.FromBase64String(str);
-			byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
-
-			return Convert.ToBase64String(hash, 0, 24);
-		}
-
-		private static byte[] PBKDF2(string password, byte[] salt, int iterations, int outputBytes)
-		{
-			Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt);
-			pbkdf2.IterationCount = iterations;
-			return pbkdf2.GetBytes(outputBytes);
-		}
-
 		private void Cb1_CheckedChanged(object sender, EventArgs e)
 		{
 			if (cb1.Checked)
@@ -204,14 +161,17 @@ namespace GG
 
 		private void LoginAccount(string name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
-
 			SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "update dbo.GGusers set state = 1 where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();
+		}
+
+		private void Register_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

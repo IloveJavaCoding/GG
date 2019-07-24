@@ -10,13 +10,18 @@ namespace GG
 {
 	public partial class User : Form
 	{
+		Functions functions;
+		protected SqlConnection conn;
+
 		protected string username = "";
 		protected Color colors;
 		public User(string name)
 		{
 			InitializeComponent();
+			functions = new Functions();
+			conn = functions.conn;
 			username = name;
-			colors = Color.FromArgb(112, 224, 255);
+			colors = functions.colors;
 		}
 
 		private void User_Load(object sender, EventArgs e)
@@ -24,19 +29,10 @@ namespace GG
 			userToolStripMenuItem.Checked = true;
 			userToolStripMenuItem.BackColor = colors;
 
-			//Backcolor_transparent();
 			Account_info_bind(username);
-			Change_shap();
-		
-			Load_imgs();
-		}
+			functions.Change_shap(pictureBox2);
 
-		private void Backcolor_transparent()
-		{
-			pictureBox1.SendToBack();
-			change_bg.BackColor = Color.Transparent;
-			change_bg.Parent = pictureBox1;
-			change_bg.BringToFront();
+			Load_imgs();
 		}
 
 		private void Load_imgs()
@@ -82,7 +78,7 @@ namespace GG
 		{
 			label1.Text = name;
 			label2.Text = "Online";
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+	
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -119,12 +115,11 @@ namespace GG
 			var bytes = webClient.DownloadData(url);
 			Image img = Image.FromStream(new MemoryStream(bytes));
 			pictureBox2.Image = img;
-			Change_shap();
+			functions.Change_shap(pictureBox2);
 		}
 
 		private string Get_bgname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -142,7 +137,6 @@ namespace GG
 
 		private string Get_portraitname(string username)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -179,7 +173,7 @@ namespace GG
 				Image img = Image.FromFile(openFileDialog.FileName);
 				pictureBox2.Image = img;
 
-				Change_shap();
+				functions.Change_shap(pictureBox2);
 				string path = openFileDialog.FileName;
 				Upload_portrait(path);
 			}
@@ -195,7 +189,6 @@ namespace GG
 
 		private void Update_portraitname(string name, string portraits)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
@@ -229,7 +222,6 @@ namespace GG
 
 		private void Update_bgname(string name,string bg)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
@@ -244,45 +236,9 @@ namespace GG
 		{
 			if (MessageBox.Show("Are you sure to logout?", "GG", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
-				LogoutAccount();
+				functions.Logout_Account(username);
 				Application.Exit();
 			}
-		}
-
-		private void Change_shap()
-		{
-			Image image = pictureBox2.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			pictureBox2.Image = image1;
-		}
-
-		private Image CutEllipse(Image img, Rectangle rec, Size size)
-		{
-			Bitmap bitmap = new Bitmap(size.Width, size.Height);
-			using (Graphics g = Graphics.FromImage(bitmap))
-			{
-				using (TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
-				{
-					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
-					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-					g.FillEllipse(br, new Rectangle(Point.Empty, size));
-				}
-			}
-
-			return bitmap;
-		}
-
-		private void LogoutAccount()
-		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
-
-			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
-			cmd.ExecuteNonQuery();
-
-			cmd.Dispose();
-			conn.Close();
 		}
 
 		public void Refresh_window(string username)
@@ -292,7 +248,7 @@ namespace GG
 
 		private void User_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			LogoutAccount();
+			functions.Logout_Account(username);
 			Application.Exit();
 		}
 

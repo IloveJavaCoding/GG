@@ -10,6 +10,8 @@ namespace GG
 {
 	public partial class Add_friend : Form
 	{
+		Functions functions;
+		protected SqlConnection conn;
 		protected Contact main_info;
 		protected string username;
 		public Add_friend(Contact main_info, string username)
@@ -17,6 +19,9 @@ namespace GG
 			this.main_info = main_info;
 			this.username = username;
 			InitializeComponent();
+
+			functions = new Functions();
+			conn = functions.conn;
 		}
 
 		private void Search_Click(object sender, EventArgs e)
@@ -32,7 +37,6 @@ namespace GG
 		{
 			if (Validate_search(search_name))
 			{
-				SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 				conn.Open();
 
 				SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
@@ -74,13 +78,11 @@ namespace GG
 			{
 				return false;
 			}
-
 			return true;
 		}
 
 		private bool Is_Friend(string username, string search_name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("select * from GG_Friends where username=@Username and friend_name=@FUN", conn);
@@ -147,31 +149,10 @@ namespace GG
 			var bytes = webClient.DownloadData(url);
 			Image img = Image.FromStream(new MemoryStream(bytes));
 			portrait.Image = img;
-			Change_shap();
+
+			functions.Change_shap(portrait);
 		}
 
-		private void Change_shap()
-		{
-			Image image = portrait.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			portrait.Image = image1;
-		}
-
-		private Image CutEllipse(Image img, Rectangle rec, Size size)
-		{
-			Bitmap bitmap = new Bitmap(size.Width, size.Height);
-			using (Graphics g = Graphics.FromImage(bitmap))
-			{
-				using (TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
-				{
-					br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
-					g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-					g.FillEllipse(br, new Rectangle(Point.Empty, size));
-				}
-			}
-
-			return bitmap;
-		}
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
@@ -189,7 +170,6 @@ namespace GG
 
 		private void Add_Firends(int num, string username, string friendname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
 			SqlCommand cmd = new SqlCommand("insert into GG_Friends(id,username,friend_name,friend_nick) values(" + num + ",@UN, @FUN, @FNN)", conn);
@@ -204,7 +184,6 @@ namespace GG
 
 		private int Get_num_all_friends()
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 			SqlCommand cmd = new SqlCommand("select * from GG_Friends", conn);
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -215,6 +194,11 @@ namespace GG
 			conn.Close();
 
 			return ds.Tables[0].Rows.Count;
+		}
+
+		private void Add_friend_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
