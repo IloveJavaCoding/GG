@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Contact));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -45,6 +44,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.chinaNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gGNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -54,12 +55,10 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-
             this.messageToolStripMenuItem,
             this.contactsToolStripMenuItem,
             this.newsToolStripMenuItem,
             this.userToolStripMenuItem});
-
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(265, 25);
@@ -81,10 +80,12 @@
             // 
             // newsToolStripMenuItem
             // 
+            this.newsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chinaNewsToolStripMenuItem,
+            this.gGNewsToolStripMenuItem});
             this.newsToolStripMenuItem.Name = "newsToolStripMenuItem";
             this.newsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.newsToolStripMenuItem.Text = "News";
-            this.newsToolStripMenuItem.Click += new System.EventHandler(this.NewsToolStripMenuItem_Click);
             // 
             // userToolStripMenuItem
             // 
@@ -178,6 +179,20 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
             // 
+            // chinaNewsToolStripMenuItem
+            // 
+            this.chinaNewsToolStripMenuItem.Name = "chinaNewsToolStripMenuItem";
+            this.chinaNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chinaNewsToolStripMenuItem.Text = "China News";
+            this.chinaNewsToolStripMenuItem.Click += new System.EventHandler(this.ChinaNewsToolStripMenuItem_Click);
+            // 
+            // gGNewsToolStripMenuItem
+            // 
+            this.gGNewsToolStripMenuItem.Name = "gGNewsToolStripMenuItem";
+            this.gGNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gGNewsToolStripMenuItem.Text = "GG News";
+            this.gGNewsToolStripMenuItem.Click += new System.EventHandler(this.GGNewsToolStripMenuItem_Click);
+            // 
             // Contact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -221,5 +236,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ToolStripMenuItem chinaNewsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gGNewsToolStripMenuItem;
     }
 }

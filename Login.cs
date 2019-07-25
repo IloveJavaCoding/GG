@@ -5,82 +5,87 @@ using System.Windows.Forms;
 
 namespace GG
 {
-	public partial class Login : Form
-	{
-		Functions functions; 
-		private SqlConnection conn;
+    public partial class Login : Form
+    {
+        Functions functions;
+        private SqlConnection conn;
 
-		public Login()
-		{
-			InitializeComponent();
-			StartPosition = FormStartPosition.CenterScreen;
-			functions = new Functions();
-			conn = functions.conn;
-		}
+        public Login()
+        {
+            InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
+            functions = new Functions();
+            conn = functions.conn;
+        }
 
-		private void B_login_Click(object sender, EventArgs e)
-		{
-
+        private void B_login_Click(object sender, EventArgs e)
+        {
             ValidateAccount();
         }
 
-		private void Go_to_homepage(string username)
-		{
-			Homepage homepage = new Homepage(username)
-			{
-				StartPosition = FormStartPosition.CenterScreen
-			};
-			homepage.Show();
-		}
+        private void Go_to_homepage(string username)
+        {
+            Homepage homepage = new Homepage(username)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            if (Homepage.client.success)
+                homepage.Show();
+            else
+            {
+                MessageBox.Show("Please contact administrator to get more information!", "Can't connect server!");
+                CommonHandler.SafelyExit();
+            }
+        }
 
-		private void UpdateAccount(string name)
-		{
-			string ip = functions.Get_Host_IP();
-			conn.Open();
+        private void UpdateAccount(string name)
+        {
+            string ip = NetworkHandler.GetLocalIP();
+            conn.Open();
 
-			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.user_info set status = 1, ip = '" + ip + "' where username = '" + name + "'";
-			cmd.ExecuteNonQuery();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "update dbo.user_info set status = 1, ip = '" + ip + "' where username = '" + name + "'";
+            cmd.ExecuteNonQuery();
 
-			cmd.Dispose();
-			conn.Close();
-		}
+            cmd.Dispose();
+            conn.Close();
+        }
 
-		private void Register_Click(object sender, EventArgs e)
-		{
-			this.Hide();
-			Register register = new Register
-			{
-				StartPosition = FormStartPosition.CenterScreen
-			};
-			register.Show();
-		}
+        private void Register_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Register register = new Register
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            register.Show();
+        }
 
-		private void Forget_pass_Click(object sender, EventArgs e)
-		{
-			this.Hide();
-			Forget_password forget = new Forget_password
-			{
-				StartPosition = FormStartPosition.CenterScreen
-			};
-			forget.Show();
-		}
+        private void Forget_pass_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Forget_password forget = new Forget_password
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            forget.Show();
+        }
 
-		private void Cb1_CheckedChanged(object sender, EventArgs e)
-		{
-			if (cb1.Checked)
-			{
-				password.PasswordChar = '\0';
-			}
-			else
-			{
-				password.PasswordChar = '*';
-			}
-		}
+        private void Cb1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb1.Checked)
+            {
+                password.PasswordChar = '\0';
+            }
+            else
+            {
+                password.PasswordChar = '*';
+            }
+        }
 
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 ValidateAccount();
             }

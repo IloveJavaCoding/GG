@@ -59,10 +59,7 @@ namespace GG
 
         private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            News news = new News(username);
-            news.StartPosition = FormStartPosition.CenterScreen;
-            news.Show();
+            
         }
 
         private void Account_info_bind(string name)
@@ -155,6 +152,22 @@ namespace GG
             }
             else
                 e.Cancel = true;
+        }
+
+        private void ChinaNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            News news = new News(username);
+            news.StartPosition = FormStartPosition.CenterScreen;
+            news.Show();
+        }
+
+        private void GGNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            GGNews GGnews = new GGNews(username);
+            GGnews.StartPosition = FormStartPosition.CenterScreen;
+            GGnews.Show();
         }
     }
 }

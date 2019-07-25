@@ -39,6 +39,7 @@ D:\Documents\GitHub\GG\bin\Debug\GG.application
 D:\Documents\GitHub\GG\obj\Debug\GG.exe.manifest
 D:\Documents\GitHub\GG\obj\Debug\GG.application
 D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
+<<<<<<< HEAD
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csprojAssemblyReference.cache
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Chatroom.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Add_friend.resources
@@ -64,3 +65,6 @@ D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe
 D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.pdb
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe.manifest
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.application
+=======
+D:\Documents\GitHub\GG\obj\Debug\GG.GGNews.resources
+>>>>>>> 00059f0094902924efe55de79166efcab853cd41

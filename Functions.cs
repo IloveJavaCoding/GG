@@ -17,7 +17,6 @@ namespace GG
 
 		public Functions()
 		{
-
 			conn = new SqlConnection(@"Server=MRD;database=IMS;UId=admin;password=aaaa");
 			colors = Color.FromArgb(112, 224, 255);
 		}

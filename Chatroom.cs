@@ -27,7 +27,6 @@ namespace GG
 
             localUser = user;
             remoteUser = friend;
-
             Text = friend;
             watching = true;
 
@@ -181,10 +180,6 @@ namespace GG
             }
 
         }
+    }
 
-		private void Chatroom_Load(object sender, EventArgs e)
-		{
-
-		}
-	}
 }
