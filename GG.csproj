@@ -185,6 +185,9 @@
     <EmbeddedResource Include="Friend_Info.resx">
       <DependentUpon>Friend_Info.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GGNews.resx">
+      <DependentUpon>GGNews.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Homepage.resx">
       <DependentUpon>Homepage.cs</DependentUpon>
     </EmbeddedResource>
