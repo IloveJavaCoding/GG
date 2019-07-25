@@ -10,7 +10,7 @@ namespace GG
     class DatabaseHandler
     {
         private static readonly SqlConnection conn
-            = new SqlConnection(@"Server=MRD\SQLEXPRESS;Database=IMS;UId=admin;Password=aaaa");
+            = new SqlConnection(@"Server=MRD;Database=IMS;UId=admin;Password=aaaa");
 
         /// <summary>
         /// 选取相关用户的消息记录

@@ -55,3 +55,12 @@ D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.User.resources
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.GenerateResource.cache
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe
 D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Contact.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe.config
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe.manifest
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.application
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe.manifest
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.application

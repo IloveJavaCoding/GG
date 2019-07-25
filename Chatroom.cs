@@ -182,10 +182,9 @@ namespace GG
 
         }
 
-        private void TextBox3_TextChanged(object sender, EventArgs e)
-        {
-            textBox3.SelectionStart = textBox3.Text.Length;
-            textBox3.ScrollToCaret();
-        }
-    }
+		private void Chatroom_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

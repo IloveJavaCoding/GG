@@ -28,130 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.send = new System.Windows.Forms.Button();
-
-            this.close = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-
-            this.SuspendLayout();
-            // 
-            // textBox3
-            // 
-
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox3.Location = new System.Drawing.Point(12, 12);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-
-            this.textBox3.Size = new System.Drawing.Size(605, 387);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.TextChanged += new System.EventHandler(this.TextBox3_TextChanged);
-            // 
-            // textBox4
-            // 
-
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-
-            this.textBox4.Location = new System.Drawing.Point(12, 405);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(605, 134);
-            this.textBox4.TabIndex = 3;
-            this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox4_KeyDown);
-            // 
-            // send
-            // 
-            this.send.BackColor = System.Drawing.Color.White;
-            this.send.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.send.Location = new System.Drawing.Point(530, 507);
-            this.send.Name = "send";
-            this.send.Size = new System.Drawing.Size(70, 24);
-            this.send.TabIndex = 4;
-            this.send.Text = "Send";
-            this.send.UseVisualStyleBackColor = false;
-            this.send.Click += new System.EventHandler(this.Send_Click);
-            // 
-            // close
-            // 
-
-            this.close.BackColor = System.Drawing.Color.White;
-            this.close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.close.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.close.Location = new System.Drawing.Point(449, 508);
-            this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(75, 23);
-            this.close.TabIndex = 12;
-            this.close.Text = "Close";
-            this.close.UseVisualStyleBackColor = false;
-            this.close.Click += new System.EventHandler(this.Close_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.BackColor = System.Drawing.SystemColors.Control;
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(623, 12);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(178, 527);
-            this.listView1.TabIndex = 13;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(50, 50);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(656, 208);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(180, 27);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "[friendName]";
-            // 
-            // close
-            // 
-            this.close.BackColor = System.Drawing.Color.White;
-            this.close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.close.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.close.Location = new System.Drawing.Point(449, 508);
-            this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(75, 23);
-            this.close.TabIndex = 12;
-            this.close.Text = "Close";
-            this.close.UseVisualStyleBackColor = false;
-            // 
-            // Chatroom
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
-            this.ClientSize = new System.Drawing.Size(806, 543);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.close);
-            this.Controls.Add(this.send);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Name = "Chatroom";
-            this.Text = "Chatroom";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chatroom_FormClosing);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.components = new System.ComponentModel.Container();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.send = new System.Windows.Forms.Button();
+			this.close = new System.Windows.Forms.Button();
+			this.listView1 = new System.Windows.Forms.ListView();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.SuspendLayout();
+			// 
+			// textBox3
+			// 
+			this.textBox3.BackColor = System.Drawing.Color.White;
+			this.textBox3.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.textBox3.Location = new System.Drawing.Point(12, 12);
+			this.textBox3.Multiline = true;
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(605, 387);
+			this.textBox3.TabIndex = 5;
+			// 
+			// textBox4
+			// 
+			this.textBox4.BackColor = System.Drawing.Color.White;
+			this.textBox4.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.textBox4.Location = new System.Drawing.Point(12, 405);
+			this.textBox4.Multiline = true;
+			this.textBox4.Name = "textBox4";
+			this.textBox4.Size = new System.Drawing.Size(605, 134);
+			this.textBox4.TabIndex = 3;
+			this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox4_KeyDown);
+			// 
+			// send
+			// 
+			this.send.BackColor = System.Drawing.Color.White;
+			this.send.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.send.Location = new System.Drawing.Point(530, 507);
+			this.send.Name = "send";
+			this.send.Size = new System.Drawing.Size(70, 24);
+			this.send.TabIndex = 4;
+			this.send.Text = "Send";
+			this.send.UseVisualStyleBackColor = false;
+			this.send.Click += new System.EventHandler(this.Send_Click);
+			// 
+			// close
+			// 
+			this.close.BackColor = System.Drawing.Color.White;
+			this.close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.close.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.close.Location = new System.Drawing.Point(449, 508);
+			this.close.Name = "close";
+			this.close.Size = new System.Drawing.Size(75, 23);
+			this.close.TabIndex = 12;
+			this.close.Text = "Close";
+			this.close.UseVisualStyleBackColor = false;
+			this.close.Click += new System.EventHandler(this.Close_Click);
+			// 
+			// listView1
+			// 
+			this.listView1.BackColor = System.Drawing.SystemColors.Control;
+			this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.listView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.listView1.HideSelection = false;
+			this.listView1.Location = new System.Drawing.Point(623, 12);
+			this.listView1.MultiSelect = false;
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(178, 527);
+			this.listView1.TabIndex = 13;
+			this.listView1.UseCompatibleStateImageBehavior = false;
+			this.listView1.View = System.Windows.Forms.View.List;
+			this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
+			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(50, 50);
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
+			// Chatroom
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(806, 543);
+			this.Controls.Add(this.listView1);
+			this.Controls.Add(this.close);
+			this.Controls.Add(this.send);
+			this.Controls.Add(this.textBox4);
+			this.Controls.Add(this.textBox3);
+			this.Name = "Chatroom";
+			this.Text = "Chatroom";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chatroom_FormClosing);
+			this.Load += new System.EventHandler(this.Chatroom_Load);
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
