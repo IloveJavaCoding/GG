@@ -39,3 +39,4 @@ D:\Documents\GitHub\GG\bin\Debug\GG.application
 D:\Documents\GitHub\GG\obj\Debug\GG.exe.manifest
 D:\Documents\GitHub\GG\obj\Debug\GG.application
 D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
+D:\Documents\GitHub\GG\obj\Debug\GG.GGNews.resources

@@ -24,6 +24,8 @@ namespace GG
         Socket socConnection = null; //创建一个负责和服务器通信的套接字 
         Socket socketSender = null;  //负责发送消息的套接字
 
+        public bool success = false;
+
         public ClientService()
         {
             localIP = NetworkHandler.GetLocalIP(); //获取本地IP
@@ -45,6 +47,7 @@ namespace GG
             {
                 //连接到服务器
                 socketSender.Connect(remoteEndPoint);
+                success = true;
             }
             catch (SocketException e)
             {
