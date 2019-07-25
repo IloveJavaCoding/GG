@@ -27,6 +27,7 @@ namespace GG
 
             localUser = user;
             remoteUser = friend;
+
             Text = friend;
             watching = true;
 
@@ -179,6 +180,12 @@ namespace GG
                 Contact.chatKey.Remove(remoteUser);
             }
 
+        }
+
+        private void TextBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox3.SelectionStart = textBox3.Text.Length;
+            textBox3.ScrollToCaret();
         }
     }
 }

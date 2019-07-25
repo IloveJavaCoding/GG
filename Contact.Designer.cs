@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Contact));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -55,10 +56,12 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+
             this.messageToolStripMenuItem,
             this.contactsToolStripMenuItem,
             this.newsToolStripMenuItem,
             this.userToolStripMenuItem});
+
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(265, 25);

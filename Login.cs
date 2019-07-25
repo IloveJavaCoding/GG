@@ -20,6 +20,7 @@ namespace GG
 
 		private void B_login_Click(object sender, EventArgs e)
 		{
+
             ValidateAccount();
         }
 

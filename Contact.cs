@@ -42,6 +42,7 @@ namespace GG
 		public void Data_bind(string username)
 		{
 			friendlist.Items.Clear();
+
             bool connUsing = true;
             if (conn.State == ConnectionState.Closed)
             {
@@ -58,6 +59,7 @@ namespace GG
 
 
 			cmd.Dispose();
+
             if(!connUsing)
 			    conn.Close();
 
@@ -77,6 +79,7 @@ namespace GG
 
 				friendlist.Items.Add(nickname + " | " + sign + "|" + sta);
 			}
+
 			friendlist.Height = (num+1) * 21;
 		}
 
