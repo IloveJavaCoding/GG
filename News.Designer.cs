@@ -32,6 +32,8 @@
             this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chinaNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gGNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,9 +67,25 @@
             // 
             // newsToolStripMenuItem
             // 
+            this.newsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chinaNewsToolStripMenuItem,
+            this.gGNewsToolStripMenuItem});
             this.newsToolStripMenuItem.Name = "newsToolStripMenuItem";
             this.newsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.newsToolStripMenuItem.Text = "News";
+            // 
+            // chinaNewsToolStripMenuItem
+            // 
+            this.chinaNewsToolStripMenuItem.Name = "chinaNewsToolStripMenuItem";
+            this.chinaNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chinaNewsToolStripMenuItem.Text = "China News";
+            // 
+            // gGNewsToolStripMenuItem
+            // 
+            this.gGNewsToolStripMenuItem.Name = "gGNewsToolStripMenuItem";
+            this.gGNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gGNewsToolStripMenuItem.Text = "GG News";
+            this.gGNewsToolStripMenuItem.Click += new System.EventHandler(this.GGNewsToolStripMenuItem_Click);
             // 
             // userToolStripMenuItem
             // 
@@ -84,7 +102,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "News";
-            this.Text = "Homepage";
+            this.Text = "China News";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.News_FormClosing);
             this.Load += new System.EventHandler(this.News_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -101,5 +119,7 @@
 		private System.Windows.Forms.ToolStripMenuItem contactToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
-	}
+        private System.Windows.Forms.ToolStripMenuItem chinaNewsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gGNewsToolStripMenuItem;
+    }
 }

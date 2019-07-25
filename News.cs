@@ -68,5 +68,13 @@ namespace GG
             else
                 e.Cancel = true;
         }
+
+        private void GGNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            GGNews GGnews = new GGNews(username);
+            GGnews.StartPosition = FormStartPosition.CenterScreen;
+            GGnews.Show();
+        }
     }
 }

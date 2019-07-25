@@ -56,6 +56,8 @@
             this.l_age = new System.Windows.Forms.Label();
             this.l_gender = new System.Windows.Forms.Label();
             this.change_bg = new System.Windows.Forms.Label();
+            this.chinaNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gGNewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -93,6 +95,9 @@
             // 
             // newsToolStripMenuItem
             // 
+            this.newsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chinaNewsToolStripMenuItem,
+            this.gGNewsToolStripMenuItem});
             this.newsToolStripMenuItem.Name = "newsToolStripMenuItem";
             this.newsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.newsToolStripMenuItem.Text = "News";
@@ -339,6 +344,20 @@
             this.change_bg.Text = "Change background";
             this.change_bg.Click += new System.EventHandler(this.Change_bg_Click);
             // 
+            // chinaNewsToolStripMenuItem
+            // 
+            this.chinaNewsToolStripMenuItem.Name = "chinaNewsToolStripMenuItem";
+            this.chinaNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chinaNewsToolStripMenuItem.Text = "China News";
+            this.chinaNewsToolStripMenuItem.Click += new System.EventHandler(this.ChinaNewsToolStripMenuItem_Click);
+            // 
+            // gGNewsToolStripMenuItem
+            // 
+            this.gGNewsToolStripMenuItem.Name = "gGNewsToolStripMenuItem";
+            this.gGNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gGNewsToolStripMenuItem.Text = "GG News";
+            this.gGNewsToolStripMenuItem.Click += new System.EventHandler(this.GGNewsToolStripMenuItem_Click);
+            // 
             // User
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -352,7 +371,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "User";
-            this.Text = "Homepage";
+            this.Text = "Profile";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.User_FormClosing);
             this.Load += new System.EventHandler(this.User_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -397,5 +416,7 @@
 		private System.Windows.Forms.Label change_bg;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label change_password;
-	}
+        private System.Windows.Forms.ToolStripMenuItem chinaNewsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gGNewsToolStripMenuItem;
+    }
 }

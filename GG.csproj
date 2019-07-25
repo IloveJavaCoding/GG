@@ -122,6 +122,12 @@
       <DependentUpon>Friend_Info.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions.cs" />
+    <Compile Include="GGNews.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GGNews.Designer.cs">
+      <DependentUpon>GGNews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
     </Compile>

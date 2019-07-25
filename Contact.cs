@@ -99,16 +99,6 @@ namespace GG
 			homepage.Show();
 		}
 
-		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Hide();
-			News news = new News(username)
-			{
-				StartPosition = FormStartPosition.CenterScreen
-			};
-			news.Show();
-		}
-
 		private void UserToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Hide();
@@ -167,6 +157,24 @@ namespace GG
                 StartPosition = FormStartPosition.CenterScreen
             };
             user.Show();
+        }
+
+        private void ChinaNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            News news = new News(username)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            news.Show();
+        }
+
+        private void GGNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            GGNews GGnews = new GGNews(username);
+            GGnews.StartPosition = FormStartPosition.CenterScreen;
+            GGnews.Show();
         }
     }
 }
