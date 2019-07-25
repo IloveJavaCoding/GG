@@ -32,7 +32,7 @@ namespace GG
 			homepage.Show();
 		}
 
-		private void Login_Account(string name)
+		private void UpdateAccount(string name)
 		{
 			string ip = functions.Get_Host_IP();
 			conn.Open();
@@ -113,7 +113,7 @@ namespace GG
                 if (ds.Tables[0].Rows[0][3].ToString().Equals(functions.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
                 {
                     Hide();
-                    Login_Account(username.Text);
+                    UpdateAccount(username.Text);
                     Go_to_homepage(username.Text);
                 }
                 else
