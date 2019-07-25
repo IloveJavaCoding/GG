@@ -84,6 +84,7 @@
     <Compile Include="Forget_password.Designer.cs">
       <DependentUpon>Forget_password.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCloseEventArgs.cs" />
     <Compile Include="Friend_Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +163,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
@@ -183,7 +185,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Image\" />
+    <None Include="image\pre.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
