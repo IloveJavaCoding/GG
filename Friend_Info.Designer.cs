@@ -152,6 +152,7 @@
             this.portrait_img.Location = new System.Drawing.Point(196, 52);
             this.portrait_img.Name = "portrait_img";
             this.portrait_img.Size = new System.Drawing.Size(75, 75);
+            this.portrait_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.portrait_img.TabIndex = 1;
             this.portrait_img.TabStop = false;
             // 

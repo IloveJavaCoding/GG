@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GG
@@ -35,7 +36,9 @@ namespace GG
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
 
-                string avatarStr = CommonHandler.ImgToBase64String("../../Image/default_avatar.png");
+                Bitmap bitmap = new Bitmap("../../Image/default_avatar.png");
+                bitmap = (Bitmap)CommonHandler.ResizeImage(bitmap, new Size(75, 75));
+                string avatarStr = CommonHandler.ImgToBase64String(bitmap);
                 string backgroundStr = CommonHandler.ImgToBase64String("../../Image/default_background.png");
 
                 SqlCommand insert = new SqlCommand("insert into user_picture (username, user_avatar, user_background) values(@UN, @UA, @UB)", conn);
@@ -147,11 +150,6 @@ namespace GG
 			}
 		}
 
-		private void Register_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
-		}
-
 		private void Button2_Click(object sender, EventArgs e)
 		{
 			this.Hide();
@@ -170,9 +168,12 @@ namespace GG
 			conn.Close();
 		}
 
-		private void Register_Load(object sender, EventArgs e)
-		{
-
-		}
-	}
+        private void Register_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CommonHandler.SafelyExit();
+            else
+                e.Cancel = true;
+        }
+    }
 }

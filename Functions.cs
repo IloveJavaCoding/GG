@@ -60,11 +60,10 @@ namespace GG
 			return pbkdf2.GetBytes(outputBytes);
 		}
 
-		public void Change_shap(PictureBox portrait_img)
+		public Image Change_shap(Image img)
 		{
-			Image image = portrait_img.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			portrait_img.Image = image1;
+			img = CutEllipse(img, new Rectangle(0, 0, 75, 75), new Size(75, 75));
+            return img;
 		}
 
 		private Image CutEllipse(Image img, Rectangle rec, Size size)

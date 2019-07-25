@@ -64,6 +64,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -126,6 +127,9 @@
     </Compile>
     <Compile Include="Homepage.Designer.cs">
       <DependentUpon>Homepage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewEx.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>

@@ -108,9 +108,9 @@ namespace GG
 
         private void Result_bind(DataSet data)
         {
+            l_name.Text = data.Tables[0].Rows[0][1].ToString();
             Load_portrait();
 
-            l_name.Text = data.Tables[0].Rows[0][1].ToString();
             string gender = data.Tables[0].Rows[0][5].ToString();
             if (gender.Equals(""))
             {
@@ -137,9 +137,7 @@ namespace GG
         {
             var bytes = DatabaseHandler.SelectPicture(l_name.Text, "user_avatar");
             Image img = Image.FromStream(new MemoryStream(bytes));
-            portrait.Image = img;
-
-            functions.Change_shap(portrait);
+            portrait.Image = functions.Change_shap(img);
         }
 
 

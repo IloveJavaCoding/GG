@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GG
@@ -13,8 +14,8 @@ namespace GG
         private SqlConnection conn;
 
         protected Contact main_info;
-        protected string username;
-        protected string friendname;
+        private string username;
+        private string friendname;
 
         public Friend_Info(Contact main_info, string username, string friendname)
         {
@@ -71,19 +72,11 @@ namespace GG
             l_name.Text = friendname;
             l_gender.Text = ds.Tables[0].Rows[0][5].ToString();
             l_birthday.Text = ds.Tables[0].Rows[0][7].ToString();
-            l_nick.Text = ds.Tables[0].Rows[0][18].ToString();
+            l_nick.Text = ds.Tables[0].Rows[0][16].ToString();
             l_sign.Text = ds.Tables[0].Rows[0][9].ToString();
 
-            bg_img.Image = Load_image("user_background");
-            portrait_img.Image = Load_image("user_avatar");
-            functions.Change_shap(portrait_img);
-        }
-
-        private Image Load_image(string imgType)
-        {
-            var bytes = DatabaseHandler.SelectPicture(friendname, imgType);
-
-            return Image.FromStream(new MemoryStream(bytes));
+            bg_img.Image = CommonHandler.LoadImage(friendname, "user_background");
+            portrait_img.Image = functions.Change_shap(CommonHandler.LoadImage(friendname, "user_avatar"));
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -117,11 +110,14 @@ namespace GG
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Chatroom chatroom = new Chatroom(username, friendname);
-            Contact.chatKey.Add(friendname, chatroom);
             Hide();
-            chatroom.StartPosition = FormStartPosition.CenterScreen;
-            chatroom.Show();
+            if (!Contact.chatKey.ContainsKey(friendname))
+            {
+                Contact.chatKey.Add(friendname, new Chatroom(username, friendname));
+            }
+            if(Contact.chatKey.Count == 1)
+                Contact.chatKey.Values.First().StartPosition =  FormStartPosition.CenterScreen;
+            CommonHandler.UpdateShowing(friendname);
         }
     }
 }

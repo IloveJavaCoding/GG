@@ -14,6 +14,7 @@ namespace GG
 		protected string username = "";
 		protected Color colors;
 
+        // 基于用户名的聊天室
         public static Dictionary<string, Chatroom> chatKey = new Dictionary<string, Chatroom>();
 
         public Contact(string name)
@@ -24,6 +25,10 @@ namespace GG
 			functions = new Functions();
 			conn = functions.conn;
 			colors = functions.colors;
+
+            pictureBox2.Image = Homepage.image;
+            label2.Text = username;
+            textBox2.Text = Homepage.signature;
 		}
 
 		private void Contact_Load(object sender, EventArgs e)
@@ -55,7 +60,6 @@ namespace GG
 			cmd.Dispose();
             if(!connUsing)
 			    conn.Close();
-			dataGridView1.DataSource = ds.Tables[0].DefaultView;
 
 			int num = ds.Tables[0].Rows.Count;
 
@@ -68,12 +72,12 @@ namespace GG
 					sta = "online";
 				}
 
-				string nickname = ds.Tables[0].Rows[i][18].ToString();
+				string nickname = ds.Tables[0].Rows[i][16].ToString();
 				string sign = ds.Tables[0].Rows[i][9].ToString();
 
 				friendlist.Items.Add(nickname + " | " + sign + "|" + sta);
 			}
-			friendlist.Height = (num+1) * 16;
+			friendlist.Height = (num+1) * 21;
 		}
 
 		private void PictureBox1_Click(object sender, EventArgs e)
@@ -144,10 +148,25 @@ namespace GG
 			return ds.Tables[0].Rows[0][2].ToString();
 		}
 
-		private void Contact_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			functions.Logout_Account(username);
-			Application.Exit();
-		}
-	}
+        private void Contact_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                functions.Logout_Account(username);
+                CommonHandler.SafelyExit();
+            }
+            else
+                e.Cancel = true;
+        }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            Hide();
+            User user = new User(username)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            user.Show();
+        }
+    }
 }

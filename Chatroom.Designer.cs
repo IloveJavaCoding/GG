@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.send = new System.Windows.Forms.Button();
             this.close = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // textBox3
@@ -56,6 +58,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(605, 134);
             this.textBox4.TabIndex = 3;
+            this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox4_KeyDown);
             // 
             // send
             // 
@@ -84,11 +87,24 @@
             // 
             // listView1
             // 
+            this.listView1.BackColor = System.Drawing.SystemColors.Control;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(623, 12);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
+            this.listView1.Size = new System.Drawing.Size(178, 527);
             this.listView1.TabIndex = 13;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(50, 50);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // Chatroom
             // 
@@ -102,7 +118,7 @@
             this.Controls.Add(this.textBox3);
             this.Name = "Chatroom";
             this.Text = "Chatroom";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Chatroom_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chatroom_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,5 +131,6 @@
         private System.Windows.Forms.Button send;
         private System.Windows.Forms.Button close;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

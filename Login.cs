@@ -77,11 +77,6 @@ namespace GG
 			}
 		}
 
-		private void Login_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
-		}
-
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -121,6 +116,14 @@ namespace GG
                     MessageBox.Show("Login fail!!!", "GG");
                 }
             }
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CommonHandler.SafelyExit();
+            else
+                e.Cancel = true;
         }
     }
 }

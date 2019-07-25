@@ -17,7 +17,6 @@ C:\Users\94714\workspace\GG\obj\Debug\GG.pdb
 D:\Documents\GitHub\GG\bin\Debug\GG.exe.config
 D:\Documents\GitHub\GG\bin\Debug\GG.exe
 D:\Documents\GitHub\GG\bin\Debug\GG.pdb
-D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
 D:\Documents\GitHub\GG\obj\Debug\GG.Chatroom.resources
 D:\Documents\GitHub\GG\obj\Debug\GG.Add_friend.resources
 D:\Documents\GitHub\GG\obj\Debug\GG.Change_password.resources
@@ -39,3 +38,4 @@ D:\Documents\GitHub\GG\bin\Debug\GG.exe.manifest
 D:\Documents\GitHub\GG\bin\Debug\GG.application
 D:\Documents\GitHub\GG\obj\Debug\GG.exe.manifest
 D:\Documents\GitHub\GG\obj\Debug\GG.application
+D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
