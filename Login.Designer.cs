@@ -157,9 +157,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
 		}
 
 		#endregion
+
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.TextBox username;
 		private System.Windows.Forms.TextBox password;
