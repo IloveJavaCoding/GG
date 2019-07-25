@@ -45,11 +45,11 @@ namespace GG
 		private void Reset_password(string name, string password)
 		{
 			string salt = Get_salt();
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection("Server=MRD\\SQLEXPRESS;database=IMS;UId=admin;password=aaaa");
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set salt=@SALT, hash=@HASH where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set salt=@SALT, hash=@HASH where username = '" + name + "'";
 			cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
 			cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = Get_hash(password, salt);
 			cmd.ExecuteNonQuery();
@@ -106,16 +106,17 @@ namespace GG
 
 		private bool Judge_Answer(string name, string answer)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection("Server=MRD\\SQLEXPRESS;database=IMS;UId=admin;password=aaaa");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username = @UN", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username = @UN", conn);
 			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = name;
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
 			string ans = ds.Tables[0].Rows[0][12].ToString();
+            conn.Close();
 			if (answer.Equals(ans))
 			{
 				return true;
@@ -128,16 +129,17 @@ namespace GG
 
 		private bool Judge_username(string name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+			SqlConnection conn = new SqlConnection("Server=MRD\\SQLEXPRESS;database=IMS;UId=admin;password=aaaa");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username = @UN", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username = @UN", conn);
 			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = name;
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
 			int num = ds.Tables[0].Rows.Count;
+            conn.Close();
 			if (num > 0)
 			{
 				return false;

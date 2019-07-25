@@ -8,6 +8,9 @@ namespace GG
 {
 	public partial class Edit_account : Form
 	{
+		Functions functions;
+		protected SqlConnection conn;
+
 		private User main_info;
 		protected string username;
 		protected List<string> gender_list, blood_list;
@@ -15,6 +18,9 @@ namespace GG
 		{
 			this.main_info = main_info;
 			this.username = username;
+
+			functions = new Functions();
+			conn = functions.conn;
 			InitializeComponent();
 			gender_list = new List<string> { };
 			gender_list.Add("Male");
@@ -44,10 +50,9 @@ namespace GG
 
 		private void Account_info_bind(string name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = name;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -67,10 +72,9 @@ namespace GG
 
 		private void Update_account_info(string name)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("update dbo.GGusers set gender=@GN, age=@AG, birthday=@BD, address=@AD, signature=@SG, blood=@BL where username=@UN", conn);
+			SqlCommand cmd = new SqlCommand("update dbo.user_info set gender=@GN, age=@AG, birthday=@BD, address=@AD, signature=@SG, blood=@BL where username=@UN", conn);
 			cmd.Parameters.Add("@GN", SqlDbType.VarChar, 10).Value = cb_gender.SelectedValue;
 			cmd.Parameters.Add("@AG", SqlDbType.VarChar, 10).Value = tb_age.Text;
 			cmd.Parameters.Add("@BD", SqlDbType.VarChar, 50).Value = tb_birthday.Text;

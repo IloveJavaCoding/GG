@@ -52,6 +52,7 @@
     <Compile Include="Chatroom.Designer.cs">
       <DependentUpon>Chatroom.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientService.cs" />
     <Compile Include="CommonHandler.cs" />
     <Compile Include="Add_friend.cs">
       <SubType>Form</SubType>
@@ -90,6 +91,7 @@
     <Compile Include="Friend_Info.Designer.cs">
       <DependentUpon>Friend_Info.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functions.cs" />
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,7 +128,6 @@
     <EmbeddedResource Include="Chatroom.resx">
       <DependentUpon>Chatroom.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Users.cs" />
     <EmbeddedResource Include="Add_friend.resx">
       <DependentUpon>Add_friend.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,8 +183,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Image\" />
+    <Content Include="Image\default_avatar.png" />
+    <Content Include="Image\default_background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

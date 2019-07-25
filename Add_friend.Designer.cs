@@ -32,20 +32,20 @@
 			this.search = new System.Windows.Forms.Button();
 			this.tb_input = new System.Windows.Forms.TextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
-			this.result = new System.Windows.Forms.Label();
 			this.p_info = new System.Windows.Forms.Panel();
-			this.portrait = new System.Windows.Forms.PictureBox();
-			this.l_name = new System.Windows.Forms.Label();
-			this.l_gender = new System.Windows.Forms.Label();
-			this.l_birthday = new System.Windows.Forms.Label();
-			this.l_signature = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.l_signature = new System.Windows.Forms.Label();
+			this.l_birthday = new System.Windows.Forms.Label();
+			this.l_gender = new System.Windows.Forms.Label();
+			this.l_name = new System.Windows.Forms.Label();
+			this.portrait = new System.Windows.Forms.PictureBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.result = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.p_info.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.portrait)).BeginInit();
 			this.panel3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.portrait)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -84,17 +84,6 @@
 			this.panel2.Size = new System.Drawing.Size(612, 323);
 			this.panel2.TabIndex = 1;
 			// 
-			// result
-			// 
-			this.result.AutoSize = true;
-			this.result.ForeColor = System.Drawing.Color.Red;
-			this.result.Location = new System.Drawing.Point(111, 108);
-			this.result.Name = "result";
-			this.result.Size = new System.Drawing.Size(23, 12);
-			this.result.TabIndex = 0;
-			this.result.Text = "...";
-			this.result.Visible = false;
-			// 
 			// p_info
 			// 
 			this.p_info.BackColor = System.Drawing.Color.Transparent;
@@ -105,61 +94,6 @@
 			this.p_info.Size = new System.Drawing.Size(483, 162);
 			this.p_info.TabIndex = 1;
 			this.p_info.Visible = false;
-			// 
-			// portrait
-			// 
-			this.portrait.Location = new System.Drawing.Point(33, 20);
-			this.portrait.Name = "portrait";
-			this.portrait.Size = new System.Drawing.Size(75, 75);
-			this.portrait.TabIndex = 0;
-			this.portrait.TabStop = false;
-			// 
-			// l_name
-			// 
-			this.l_name.AutoSize = true;
-			this.l_name.Location = new System.Drawing.Point(149, 20);
-			this.l_name.Name = "l_name";
-			this.l_name.Size = new System.Drawing.Size(53, 12);
-			this.l_name.TabIndex = 1;
-			this.l_name.Text = "username";
-			// 
-			// l_gender
-			// 
-			this.l_gender.AutoSize = true;
-			this.l_gender.Location = new System.Drawing.Point(149, 50);
-			this.l_gender.Name = "l_gender";
-			this.l_gender.Size = new System.Drawing.Size(41, 12);
-			this.l_gender.TabIndex = 2;
-			this.l_gender.Text = "gender";
-			// 
-			// l_birthday
-			// 
-			this.l_birthday.AutoSize = true;
-			this.l_birthday.Location = new System.Drawing.Point(149, 83);
-			this.l_birthday.Name = "l_birthday";
-			this.l_birthday.Size = new System.Drawing.Size(53, 12);
-			this.l_birthday.TabIndex = 3;
-			this.l_birthday.Text = "birthday";
-			// 
-			// l_signature
-			// 
-			this.l_signature.AutoSize = true;
-			this.l_signature.Location = new System.Drawing.Point(31, 125);
-			this.l_signature.Name = "l_signature";
-			this.l_signature.Size = new System.Drawing.Size(59, 12);
-			this.l_signature.TabIndex = 4;
-			this.l_signature.Text = "signature";
-			// 
-			// button1
-			// 
-			this.button1.ForeColor = System.Drawing.Color.Blue;
-			this.button1.Location = new System.Drawing.Point(317, 84);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 5;
-			this.button1.Text = "+ Add ";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.Button1_Click);
 			// 
 			// panel3
 			// 
@@ -173,6 +107,72 @@
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(258, 154);
 			this.panel3.TabIndex = 6;
+			// 
+			// l_signature
+			// 
+			this.l_signature.AutoSize = true;
+			this.l_signature.Location = new System.Drawing.Point(31, 125);
+			this.l_signature.Name = "l_signature";
+			this.l_signature.Size = new System.Drawing.Size(59, 12);
+			this.l_signature.TabIndex = 4;
+			this.l_signature.Text = "signature";
+			// 
+			// l_birthday
+			// 
+			this.l_birthday.AutoSize = true;
+			this.l_birthday.Location = new System.Drawing.Point(149, 83);
+			this.l_birthday.Name = "l_birthday";
+			this.l_birthday.Size = new System.Drawing.Size(53, 12);
+			this.l_birthday.TabIndex = 3;
+			this.l_birthday.Text = "birthday";
+			// 
+			// l_gender
+			// 
+			this.l_gender.AutoSize = true;
+			this.l_gender.Location = new System.Drawing.Point(149, 50);
+			this.l_gender.Name = "l_gender";
+			this.l_gender.Size = new System.Drawing.Size(41, 12);
+			this.l_gender.TabIndex = 2;
+			this.l_gender.Text = "gender";
+			// 
+			// l_name
+			// 
+			this.l_name.AutoSize = true;
+			this.l_name.Location = new System.Drawing.Point(149, 20);
+			this.l_name.Name = "l_name";
+			this.l_name.Size = new System.Drawing.Size(53, 12);
+			this.l_name.TabIndex = 1;
+			this.l_name.Text = "username";
+			// 
+			// portrait
+			// 
+			this.portrait.Location = new System.Drawing.Point(33, 20);
+			this.portrait.Name = "portrait";
+			this.portrait.Size = new System.Drawing.Size(75, 75);
+			this.portrait.TabIndex = 0;
+			this.portrait.TabStop = false;
+			// 
+			// button1
+			// 
+			this.button1.ForeColor = System.Drawing.Color.Blue;
+			this.button1.Location = new System.Drawing.Point(317, 84);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 5;
+			this.button1.Text = "+ Add ";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.Button1_Click);
+			// 
+			// result
+			// 
+			this.result.AutoSize = true;
+			this.result.ForeColor = System.Drawing.Color.Red;
+			this.result.Location = new System.Drawing.Point(111, 108);
+			this.result.Name = "result";
+			this.result.Size = new System.Drawing.Size(23, 12);
+			this.result.TabIndex = 0;
+			this.result.Text = "...";
+			this.result.Visible = false;
 			// 
 			// Add_friend
 			// 
@@ -188,9 +188,9 @@
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			this.p_info.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.portrait)).EndInit();
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.portrait)).EndInit();
 			this.ResumeLayout(false);
 
 		}

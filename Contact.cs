@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -8,13 +9,21 @@ namespace GG
 {
 	public partial class Contact : Form
 	{
+		Functions functions;
+		protected SqlConnection conn;
 		protected string username = "";
 		protected Color colors;
-		public Contact(string name)
+
+        public static Dictionary<string, Chatroom> chatKey = new Dictionary<string, Chatroom>();
+
+        public Contact(string name)
 		{
 			InitializeComponent();
 			username = name;
-			colors = Color.FromArgb(112, 224, 255);
+
+			functions = new Functions();
+			conn = functions.conn;
+			colors = functions.colors;
 		}
 
 		private void Contact_Load(object sender, EventArgs e)
@@ -28,16 +37,24 @@ namespace GG
 		public void Data_bind(string username)
 		{
 			friendlist.Items.Clear();
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
+            bool connUsing = true;
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+                connUsing = false;
+            }
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers, GG_Friends where GG_Friends.username=@Username and GGusers.username=GG_Friends.friend_name", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info, user_friends where user_friends.username=@Username and user_info.username=user_friends.friend_name", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
+
+			cmd.Dispose();
+            if(!connUsing)
+			    conn.Close();
 			dataGridView1.DataSource = ds.Tables[0].DefaultView;
 
 			int num = ds.Tables[0].Rows.Count;
@@ -54,60 +71,48 @@ namespace GG
 				string nickname = ds.Tables[0].Rows[i][18].ToString();
 				string sign = ds.Tables[0].Rows[i][9].ToString();
 
-				friendlist.Items.Add(nickname + " | "+ sign + " | " + sta);
+				friendlist.Items.Add(nickname + " | " + sign + "|" + sta);
 			}
 			friendlist.Height = (num+1) * 16;
-			friendlist.EndUpdate();
 		}
 
 		private void PictureBox1_Click(object sender, EventArgs e)
 		{
-			Add_friend add_Friend = new Add_friend(this, username);
-			add_Friend.StartPosition = FormStartPosition.CenterScreen;
+			Add_friend add_Friend = new Add_friend(this, username)
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			add_Friend.Show();
 		}
 
 		private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Hide();
-			Homepage homepage = new Homepage(username);
-			homepage.StartPosition = FormStartPosition.CenterScreen;
+			Homepage homepage = new Homepage(username)
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			homepage.Show();
 		}
 
 		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Hide();
-			News news = new News(username);
-			news.StartPosition = FormStartPosition.CenterScreen;
+			News news = new News(username)
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			news.Show();
 		}
 
 		private void UserToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Hide();
-			User user = new User(username);
-			user.StartPosition = FormStartPosition.CenterScreen;
+			User user = new User(username)
+			{
+				StartPosition = FormStartPosition.CenterScreen
+			};
 			user.Show();
-		}
-
-		private void LogoutAccount()
-		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
-			conn.Open();
-
-			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
-			cmd.ExecuteNonQuery();
-
-			cmd.Dispose();
-			conn.Close();
-		}
-
-		private void Contact_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			LogoutAccount();
-			Application.Exit();
 		}
 
 		private void Firendlist_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,10 +128,9 @@ namespace GG
 
 		private string Get_name_from_nick(string username,string nickname)
 		{
-			SqlConnection conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GG_Friends where GG_Friends.username=@Username and GG_Friends.friend_nick=@NICK", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_friends where user_friends.username=@Username and user_friends.friend_nick=@NICK", conn);
 			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
 			cmd.Parameters.Add("@NICK", SqlDbType.VarChar, 50).Value = nickname;
 
@@ -134,7 +138,16 @@ namespace GG
 			DataSet ds = new DataSet();
 			adapter.Fill(ds);
 
+			cmd.Dispose();
+			conn.Close();
+
 			return ds.Tables[0].Rows[0][2].ToString();
+		}
+
+		private void Contact_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			functions.Logout_Account(username);
+			Application.Exit();
 		}
 	}
 }

@@ -162,6 +162,7 @@
 			this.MaximizeBox = false;
 			this.Name = "Change_password";
 			this.Text = "Change_password";
+			this.Load += new System.EventHandler(this.Change_password_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
