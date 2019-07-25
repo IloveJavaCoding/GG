@@ -12,7 +12,7 @@ namespace GG.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,8 +26,8 @@ namespace GG.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=NEPALESE\\SQLEXPRESS;Initial Catalog=mydatabase;Persist Security Info=" +
-            "True;User ID=Nepalese;Password=zsl142857")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MRD\\SQLEXPRESS;Initial Catalog=IMS;Persist Security Info=True;User ID" +
+            "=admin;Password=aaaa")]
         public string mydatabaseConnectionString {
             get {
                 return ((string)(this["mydatabaseConnectionString"]));

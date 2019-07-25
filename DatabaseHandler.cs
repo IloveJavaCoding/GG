@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,8 +11,6 @@ namespace GG
     {
         private static readonly SqlConnection conn
             = new SqlConnection(@"Server=MRD\SQLEXPRESS;Database=IMS;UId=admin;Password=aaaa");
-        public static readonly string connString_zsl
-            = @"Server=NEPALESE\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857";
 
         /// <summary>
         /// 选取相关用户的消息记录
@@ -40,6 +37,143 @@ namespace GG
             conn.Close();
 
             return messageTable;
+        }
+
+        /// <summary>
+        /// 更新用户图片
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <param name="pictureStr">图片的Base字符串</param>
+        /// <param name="pictureType">图片类型</param>
+        public static void UpdatePicture(string username, string pictureStr, string pictureType)
+        {
+            conn.Open();
+            SqlCommand update = conn.CreateCommand();
+            update.CommandType = CommandType.Text;
+            if (pictureType.Equals("user_avatar"))
+                update.CommandText = "update user_picture set user_avatar = @VALUE where username = @UN";
+            else
+                update.CommandText = "update user_picture set user_background = @VALUE where username = @UN";
+            update.Parameters.Add("@VALUE", SqlDbType.VarChar).Value = pictureStr;
+            update.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+
+            update.ExecuteNonQuery();
+
+            update.Dispose();
+            conn.Close();
+        }
+
+        /// <summary>
+        /// 从数据库中提取图片
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <param name="pictureType">图片类型</param>
+        /// <returns></returns>
+        public static byte[] SelectPicture(string username, string pictureType)
+        {
+            conn.Open();
+            SqlCommand select = conn.CreateCommand();
+            select.CommandType = CommandType.Text;
+            if (pictureType.Equals("user_avatar"))
+                select.CommandText = "select user_avatar from user_picture where username = @UN";
+            else
+                select.CommandText = "select user_background from user_picture where username = @UN";
+            select.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+
+            SqlDataAdapter adpter = new SqlDataAdapter(select);
+            DataSet ds = new DataSet();
+            adpter.Fill(ds);
+
+            string value = ds.Tables[0].Rows[0][0].ToString();
+
+            adpter.Dispose();
+            ds.Dispose();
+            select.Dispose();
+            conn.Close();
+
+            return Convert.FromBase64String(value);
+        }
+
+        public static string SelectLatestMessage(string sender, string receiver)
+        {
+            conn.Open();
+            SqlCommand select = new SqlCommand("select top 1 * from message where sender = @SENDER AND target = @TARGET order by time desc", conn);
+            select.Parameters.Add("@SENDER", SqlDbType.VarChar).Value = sender;
+            select.Parameters.Add("@TARGET", SqlDbType.VarChar).Value = receiver;
+
+            SqlDataAdapter adpter = new SqlDataAdapter(select);
+            DataSet ds = new DataSet();
+            adpter.Fill(ds);
+
+            string latestMsg;
+            if (ds.Tables[0].Rows.Count != 0)
+                latestMsg = ds.Tables[0].Rows[0][4].ToString();
+            else
+                latestMsg = "";
+
+            adpter.Dispose();
+            ds.Dispose();
+            select.Dispose();
+            conn.Close();
+
+            return latestMsg;
+        }
+
+        public static DataTable SelectFriend(string username)
+        {
+            conn.Open();
+            SqlCommand select = new SqlCommand("select friend_name from user_friends where username = @UN", conn);
+            select.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+
+            SqlDataAdapter adpter = new SqlDataAdapter(select);
+            DataSet ds = new DataSet();
+            adpter.Fill(ds, "friends");
+            DataTable friendTable = ds.Tables["friends"];
+
+            adpter.Dispose();
+            ds.Dispose();
+            select.Dispose();
+            conn.Close();
+
+            return friendTable;
+        }
+
+        public static string SelectSignature(string username)
+        {
+            conn.Open();
+            SqlCommand select = new SqlCommand("select signature from user_info where username = @UN", conn);
+            select.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+
+            SqlDataAdapter adpter = new SqlDataAdapter(select);
+            DataSet ds = new DataSet();
+            adpter.Fill(ds);
+
+            string signature;
+            if (ds.Tables[0].Rows.Count != 0)
+                signature = ds.Tables[0].Rows[0][0].ToString();
+            else
+                signature = "Edit your signature.";
+
+
+            adpter.Dispose();
+            ds.Dispose();
+            select.Dispose();
+            conn.Close();
+
+            return signature;
+        }
+
+        public static void UpdateSignature(string username, string signature)
+        {
+            conn.Open();
+            SqlCommand update = new SqlCommand("update user_info set signature = @SIGNATURE where username = @UN", conn);
+            update.Parameters.Add("@SIGNATURE", SqlDbType.VarChar).Value = signature;
+            update.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+
+            update.ExecuteNonQuery();
+
+            update.Dispose();
+            conn.Close();
         }
     }
 }

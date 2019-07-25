@@ -53,7 +53,7 @@ namespace GG
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set salt=@SALT, hash=@HASH where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set salt=@SALT, hash=@HASH where username = '" + name + "'";
 			cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
 			cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(password, salt);
 			cmd.ExecuteNonQuery();
@@ -65,7 +65,7 @@ namespace GG
 		{
 			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username = @UN", conn);
+			SqlCommand cmd = new SqlCommand("select * from user_info where username = @UN", conn);
 			cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = name;
 			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 			DataSet ds = new DataSet();

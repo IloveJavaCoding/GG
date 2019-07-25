@@ -17,7 +17,8 @@ namespace GG
 
 		public Functions()
 		{
-			conn = new SqlConnection("Server=NEPALESE\\SQLEXPRESS;database=mydatabase;UId=Nepalese;password=zsl142857");
+
+			conn = new SqlConnection(@"Server=MRD\SQLEXPRESS;database=IMS;UId=admin;password=aaaa");
 			colors = Color.FromArgb(112, 224, 255);
 		}
 
@@ -60,11 +61,10 @@ namespace GG
 			return pbkdf2.GetBytes(outputBytes);
 		}
 
-		public void Change_shap(PictureBox portrait_img)
+		public Image Change_shap(Image img)
 		{
-			Image image = portrait_img.Image;
-			Image image1 = CutEllipse(image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
-			portrait_img.Image = image1;
+			img = CutEllipse(img, new Rectangle(0, 0, 75, 75), new Size(75, 75));
+            return img;
 		}
 
 		private Image CutEllipse(Image img, Rectangle rec, Size size)
@@ -89,7 +89,7 @@ namespace GG
 		{
 			conn.Open();
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 0 where username = '" + username + "'";
+			cmd.CommandText = "update dbo.user_info set status = 0 where username = '" + username + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();

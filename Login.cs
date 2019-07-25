@@ -20,36 +20,9 @@ namespace GG
 
 		private void B_login_Click(object sender, EventArgs e)
 		{
-			conn.Open();
 
-			SqlCommand cmd = new SqlCommand("select * from GGusers where username=@Username", conn);
-			cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username.Text;
-
-			SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-			DataSet ds = new DataSet();
-			adapter.Fill(ds);
-
-			cmd.Dispose();
-			conn.Close();
-
-			if (ds.Tables[0].Rows.Count == 0)
-			{
-				MessageBox.Show("Username no find!!!", "GG");
-			}
-			else
-			{
-				if(ds.Tables[0].Rows[0][3].ToString().Equals(functions.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
-				{
-					Hide();
-					Login_Account(username.Text);
-					Go_to_homepage(username.Text);
-				}
-				else
-				{
-					MessageBox.Show("Login fail!!!", "GG");
-				}
-			}
-		}
+            ValidateAccount();
+        }
 
 		private void Go_to_homepage(string username)
 		{
@@ -60,13 +33,13 @@ namespace GG
 			homepage.Show();
 		}
 
-		private void Login_Account(string name)
+		private void UpdateAccount(string name)
 		{
 			string ip = functions.Get_Host_IP();
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
-			cmd.CommandText = "update dbo.GGusers set state = 1, ip = '" + ip + "' where username = '" + name + "'";
+			cmd.CommandText = "update dbo.user_info set status = 1, ip = '" + ip + "' where username = '" + name + "'";
 			cmd.ExecuteNonQuery();
 
 			cmd.Dispose();
@@ -105,9 +78,53 @@ namespace GG
 			}
 		}
 
-		private void Login_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
-		}
-	}
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                ValidateAccount();
+            }
+        }
+
+        private void ValidateAccount()
+        {
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("select * from user_info where username=@Username", conn);
+            cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username.Text;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds);
+
+            cmd.Dispose();
+            conn.Close();
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("Username no find!!!", "GG");
+            }
+            else
+            {
+                if (ds.Tables[0].Rows[0][3].ToString().Equals(functions.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
+                {
+                    Hide();
+                    UpdateAccount(username.Text);
+                    Go_to_homepage(username.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Login fail!!!", "GG");
+                }
+            }
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CommonHandler.SafelyExit();
+            else
+                e.Cancel = true;
+        }
+    }
 }

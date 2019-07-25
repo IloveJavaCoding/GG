@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,17 +18,7 @@ namespace GG
     {
         public static string localUser; //本地用户
         public string remoteUser; //远程用户
-        protected int serverPort = 1; //服务器开启的端口号，暂定为1
-        protected int clientPort = 2; //客户端开启的端口号，client暂定为2,client1暂定为3
-        private static string serverIP = "10.66.93.241"; //服务器IP地址
-        private static string localIP; //本地IP地址
-        private static IPEndPoint remoteEndPoint; //服务器IP端点
-        private static IPEndPoint localEndPoint; //本地客户端IP端点
-
-        Socket socketWatch = null; //负责监听服务器的套接字，此时客户端为接收方
-        Thread threadWatch = null; //负责监听服务器的线程，此时客户端为接收方
-        Socket socConnection = null; //创建一个负责和服务器通信的套接字 
-        Socket socketSender = null;  //负责发送消息的套接字
+        public bool watching = false;
 
         public Chatroom(string user, string friend)
         {
@@ -36,18 +27,17 @@ namespace GG
 
             localUser = user;
             remoteUser = friend;
-            updateContent();
+
             Text = friend;
+            watching = true;
 
-            localIP = NetworkHandler.GetLocalIP(); //获取本地IP
-            remoteEndPoint = NetworkHandler.BindEndPoint(serverIP, serverPort); //获取服务器端点
-            localEndPoint = NetworkHandler.BindEndPoint(localIP, clientPort); //获取本地端点
-
-            EstablishSenderService(serverIP);
-            EstablishReceiverService(localIP);
+            UpdateContent();
         }
 
-        public void updateContent()
+        /// <summary>
+        /// 更新历史消息
+        /// </summary>
+        private void UpdateContent()
         {
             DataTable messageTable = DatabaseHandler.SelectMsg(localUser, remoteUser).Copy();
             foreach (DataRow row in messageTable.Rows)
@@ -56,102 +46,140 @@ namespace GG
             }
         }
 
+        /// <summary>
+        /// 更新交谈队列
+        /// </summary>
+        public void UpdateTalkingList()
+        {
+            ArrayList contentList = new ArrayList();
+            imageList1.Images.Clear();
+            foreach (string key in Contact.chatKey.Keys)
+            {
+                Image img = CommonHandler.LoadImage(key, "user_avatar");
+                imageList1.Images.Add(img);
+                string latestMsg = key + ":\n" + DatabaseHandler.SelectLatestMessage(key, localUser);
+                if (latestMsg.Length > 30)
+                    latestMsg = latestMsg.Substring(0, 30) + "...";
+                contentList.Add(latestMsg);
+            }
+
+            UpdateListView(imageList1, contentList);
+        }
+
+        private void UpdateListView(ImageList imageList, ArrayList contentList)
+        {
+            string watchingKey = "";
+            listView1.Items.Clear();
+            listView1.SmallImageList = imageList;
+
+            foreach (string key in Contact.chatKey.Keys)
+                if (Contact.chatKey[key].watching)
+                    watchingKey = key;
+
+            listView1.BeginUpdate();
+            int i = 0;
+            foreach (string content in contentList)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.ImageIndex = i;
+                lvi.Text = content;
+                listView1.Items.Add(lvi);
+                i++;
+            }
+            listView1.EndUpdate();
+
+            foreach (ListViewItem item in listView1.Items)
+            {
+                string[] strArr = item.Text.Split(':');
+                if (strArr[0].Equals(watchingKey))
+                {
+                    item.Selected = true;
+                    item.EnsureVisible();
+                }
+                listView1.Select();
+            }
+        }
+
+        private void ListView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            string[] strArr = listView1.SelectedItems[0].SubItems[0].Text.Split(':');
+            CommonHandler.UpdateShowing(strArr[0]);
+        }
+
+        /// <summary>
+        /// 更新新消息
+        /// </summary>
+        /// <param name="messageSet">新消息</param>
+        public void NewMessage(Dictionary<string, string> messageSet)
+        {
+            textBox3.Text += messageSet["sender"] + ": " + messageSet["time"] + "\r\n" + messageSet["value"] + "\r\n";
+        }
+
         private void Send_Click(object sender, EventArgs e)
         {
-            SendMsg(localUser, "text", textBox4.Text, remoteUser, CommonHandler.GetCurrentTime().ToString());
+            SendMsg();
         }
 
-        /// <summary>
-        /// 与服务器建立连接，准备发送消息
-        /// </summary>
-        /// <param name="serverAddress">服务器地址</param>
-        private void EstablishSenderService(string serverIP)
+        private void TextBox3_TextChanged(object sender, EventArgs e)
         {
-            //负责发送消息的套接字，包含3个参数(IP4寻址协议,流式连接,TCP协议)
-            socketSender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            try
+            textBox3.SelectionStart = textBox3.Text.Length;
+            textBox3.ScrollToCaret();
+        }
+
+        private void TextBox4_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                //连接到服务器
-                socketSender.Connect(remoteEndPoint);
-            }
-            catch (SocketException e)
-            {
-                label4.Text = "Cannot connect!";
+                SendMsg();
             }
         }
 
-        /// <summary>
-        /// 打开主机端口，准备接收服务器传来的消息
-        /// </summary>
-        /// <param name="clientIP">本地客户端IP地址</param>
-        public void EstablishReceiverService(string clientIP)
+        private void SendMsg()
         {
-            //用于监听服务器信息的套接字，包含3个参数(IP4寻址协议,流式连接,TCP协议)
-            socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //监听绑定的网络节点
-            socketWatch.Bind(localEndPoint);
-            //将套接字的监听队列长度限制为20
-            socketWatch.Listen(20);
-            //创建一个监听线程 
-            threadWatch = new Thread(WatchConnecting);
-            //将窗体线程设置为与后台同步
-            threadWatch.IsBackground = true;
-            //启动线程
-            threadWatch.Start();
+            if (textBox4.Text != "")
+            {
+                string time = CommonHandler.GetCurrentTime().ToString();
+                Homepage.client.SendMsg(localUser, "text", textBox4.Text, remoteUser, time);
+                textBox3.Text += localUser + ": " + time + "\r\n" + textBox4.Text + "\r\n";
+                textBox4.Text = "";
+            }
+            else
+                MessageBox.Show("Message can't be empty", "Warnning!");
         }
 
-        private void WatchConnecting()
+        private void Close_Click(object sender, EventArgs e)
         {
-            while (true)  //持续不断监听服务器发来的请求
+            List<string> list = new List<string>(Contact.chatKey.Keys);
+            if (Contact.chatKey.Count() > 1)
             {
-                socConnection = socketWatch.Accept();
-                //创建一个通信线程 
-                ParameterizedThreadStart pts = new ParameterizedThreadStart(RecMsg);
-                Thread thr = new Thread(pts);
-                thr.IsBackground = true;
-                //启动线程
-                thr.Start(socConnection);
+                Contact.chatKey.Remove(remoteUser);
+                CommonHandler.UpdateShowing(Contact.chatKey.Keys.First());
+            }
+            else
+            {
+                Hide();
+                Contact.chatKey.Remove(remoteUser);
             }
         }
 
-        private void RecMsg(object socketReceiverPara)
+        private void Chatroom_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Socket socketListener = socketReceiverPara as Socket;
-            while (true)
+            if (Contact.chatKey.Count() > 1)
             {
-                //创建一个内存缓冲区 其大小为1024*1024字节  即1M
-                byte[] arrRecMsg = new byte[1024 * 1024];
-                //将接收到的信息存入到内存缓冲区,并返回其字节数组的长度
-                int length = socketListener.Receive(arrRecMsg);
-                //将机器接受到的字节数组转换为人可以读懂的字符串
-                string strRecMsg = Encoding.UTF8.GetString(arrRecMsg, 0, length);
-                Dictionary<string, string> messageSet = new Dictionary<string, string>(CommonHandler.ResolveMessage(strRecMsg));
-                textBox3.Text += messageSet["sender"] + ": " + messageSet["time"] + "\r\n" + messageSet["value"] + "\r\n";
+                if (MessageBox.Show("Existing mutiple windows, are you sure to exit?", "Warnning", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Hide();
+                    Contact.chatKey.Clear();
+                }
+                else
+                    e.Cancel = true;
             }
-        }
+            else
+            {
+                Hide();
+                Contact.chatKey.Remove(remoteUser);
+            }
 
-        /// <summary>
-        /// 发送字符串信息到服务器的方法
-        /// </summary>
-        /// <param name="sender">发送者</param>
-        /// <param name="content_type">发送内容类型</param>
-        /// <param name="value">发送内容</param>
-        /// <param name="target">接收者</param>
-        private void SendMsg(string sender, string content_type, string value, string target, string time)
-        {
-            string sendMsg = CommonHandler.CreateXmlString(sender, content_type, value, time, target);
-            //将输入的内容字符串转换为机器可以识别的字节数组
-            byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
-            //调用发送信息套接字发送字节数组
-            socketSender.Send(arrSendMsg);
-            textBox3.Text += sender + ": " + time + "\r\n" + value + "\r\n";
-            textBox4.Text = "";
-        }
-
-        private void Chatroom_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            socketSender.Disconnect(false);
-            Application.Exit();
         }
 
         private void TextBox3_TextChanged(object sender, EventArgs e)

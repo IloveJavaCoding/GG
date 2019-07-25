@@ -54,14 +54,12 @@
 			this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
 			this.messageToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
 			this.messageToolStripMenuItem.Text = "Message";
-			this.messageToolStripMenuItem.Click += new System.EventHandler(this.MessageToolStripMenuItem_Click);
 			// 
 			// contactToolStripMenuItem
 			// 
 			this.contactToolStripMenuItem.Name = "contactToolStripMenuItem";
 			this.contactToolStripMenuItem.Size = new System.Drawing.Size(64, 21);
 			this.contactToolStripMenuItem.Text = "Contact";
-			this.contactToolStripMenuItem.Click += new System.EventHandler(this.ContactToolStripMenuItem_Click);
 			// 
 			// newsToolStripMenuItem
 			// 
@@ -74,7 +72,6 @@
 			this.userToolStripMenuItem.Name = "userToolStripMenuItem";
 			this.userToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
 			this.userToolStripMenuItem.Text = "User";
-			this.userToolStripMenuItem.Click += new System.EventHandler(this.UserToolStripMenuItem_Click);
 			// 
 			// News
 			// 
@@ -85,7 +82,6 @@
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "News";
 			this.Text = "Homepage";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.News_FormClosed);
 			this.Load += new System.EventHandler(this.News_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
