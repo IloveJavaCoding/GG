@@ -42,8 +42,10 @@ namespace GG
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 adapter.Fill(ds);
+				cmd.Dispose();
+				conn.Close();
 
-                int num = ds.Tables[0].Rows.Count;
+				int num = ds.Tables[0].Rows.Count;
                 if (num > 0)
                 {
                     p_info.Visible = true;
@@ -55,8 +57,7 @@ namespace GG
                     result.Visible = true;
                     result.Text = "No find any users that match the condition! Please try again.";
                 }
-                cmd.Dispose();
-                conn.Close();
+               
             }
             else
             {
@@ -170,5 +171,10 @@ namespace GG
             if (!connUsing)
                 conn.Close();
         }
-    }
+
+		private void Add_friend_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

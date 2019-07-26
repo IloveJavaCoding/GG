@@ -68,3 +68,4 @@ D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.application
 =======
 D:\Documents\GitHub\GG\obj\Debug\GG.GGNews.resources
 >>>>>>> 00059f0094902924efe55de79166efcab853cd41
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.GGNews.resources
