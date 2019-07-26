@@ -73,6 +73,7 @@
             this.contactsToolStripMenuItem,
             this.newsToolStripMenuItem,
             this.userToolStripMenuItem});
+
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 25);
@@ -383,6 +384,7 @@
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
 
 		}
 
