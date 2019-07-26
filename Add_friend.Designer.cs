@@ -149,6 +149,7 @@
 			this.portrait.Location = new System.Drawing.Point(33, 20);
 			this.portrait.Name = "portrait";
 			this.portrait.Size = new System.Drawing.Size(75, 75);
+			this.portrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.portrait.TabIndex = 0;
 			this.portrait.TabStop = false;
 			// 
@@ -183,6 +184,7 @@
 			this.Controls.Add(this.panel1);
 			this.Name = "Add_friend";
 			this.Text = "Add_friend";
+			this.Load += new System.EventHandler(this.Add_friend_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.panel2.ResumeLayout(false);

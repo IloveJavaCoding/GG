@@ -1,41 +1,42 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GG
 {
 	public partial class Register : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 
 		public Register()
 		{
 			InitializeComponent();
-			functions = new Functions();
-			conn = functions.conn;
+			conn = DatabaseHandler.conn;
 		}
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
 			if (Valide(tb1.Text, tb2.Text, tb3.Text))
 			{
-				string ipv4 = functions.Get_Host_IP();
-				string salt = functions.Get_salt();
+				string ipv4 = NetworkHandler.GetLocalIP();
+				string salt = CommonHandler.Get_salt();
 				conn.Open();
 
 				SqlCommand cmd = new SqlCommand("insert into user_info(username,salt,hash,status,ip,answer) values(@UN, @SALT, @HASH,0,@IP,@AS)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
-				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(tb2.Text,salt);
+				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = CommonHandler.Get_hash(tb2.Text,salt);
 				cmd.Parameters.Add("@IP", SqlDbType.VarChar, 50).Value = ipv4;
 				cmd.Parameters.Add("@AS", SqlDbType.VarChar, 50).Value = tb4.Text;
 
 				cmd.ExecuteNonQuery();
 				cmd.Dispose();
 
-                string avatarStr = CommonHandler.ImgToBase64String("../../Image/default_avatar.png");
+                Bitmap bitmap = new Bitmap("../../Image/default_avatar.png");
+                bitmap = (Bitmap)CommonHandler.ResizeImage(bitmap, new Size(75, 75));
+                string avatarStr = CommonHandler.ImgToBase64String(bitmap);
                 string backgroundStr = CommonHandler.ImgToBase64String("../../Image/default_background.png");
 
                 SqlCommand insert = new SqlCommand("insert into user_picture (username, user_avatar, user_background) values(@UN, @UA, @UB)", conn);
@@ -147,11 +148,6 @@ namespace GG
 			}
 		}
 
-		private void Register_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
-		}
-
 		private void Button2_Click(object sender, EventArgs e)
 		{
 			this.Hide();
@@ -170,9 +166,12 @@ namespace GG
 			conn.Close();
 		}
 
-		private void Register_Load(object sender, EventArgs e)
-		{
-
-		}
-	}
+        private void Register_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CommonHandler.SafelyExit();
+            else
+                e.Cancel = true;
+        }
+    }
 }

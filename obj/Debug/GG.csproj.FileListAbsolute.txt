@@ -17,7 +17,6 @@ C:\Users\94714\workspace\GG\obj\Debug\GG.pdb
 D:\Documents\GitHub\GG\bin\Debug\GG.exe.config
 D:\Documents\GitHub\GG\bin\Debug\GG.exe
 D:\Documents\GitHub\GG\bin\Debug\GG.pdb
-D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
 D:\Documents\GitHub\GG\obj\Debug\GG.Chatroom.resources
 D:\Documents\GitHub\GG\obj\Debug\GG.Add_friend.resources
 D:\Documents\GitHub\GG\obj\Debug\GG.Change_password.resources
@@ -35,3 +34,38 @@ D:\Documents\GitHub\GG\obj\Debug\GG.csproj.GenerateResource.cache
 D:\Documents\GitHub\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\GG\obj\Debug\GG.exe
 D:\Documents\GitHub\GG\obj\Debug\GG.pdb
+D:\Documents\GitHub\GG\bin\Debug\GG.exe.manifest
+D:\Documents\GitHub\GG\bin\Debug\GG.application
+D:\Documents\GitHub\GG\obj\Debug\GG.exe.manifest
+D:\Documents\GitHub\GG\obj\Debug\GG.application
+D:\Documents\GitHub\GG\obj\Debug\GG.csprojAssemblyReference.cache
+<<<<<<< HEAD
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csprojAssemblyReference.cache
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Chatroom.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Add_friend.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Change_password.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Edit_account.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Forget_password.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Friend_Info.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Homepage.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Login.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.News.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Properties.Resources.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Register.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.User.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.GenerateResource.cache
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.Contact.resources
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.csproj.CoreCompileInputs.cache
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe.config
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe.manifest
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.application
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.exe
+D:\MyDatabase\Visual_studio\sourse\GG\bin\Debug\GG.pdb
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.exe.manifest
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.application
+=======
+D:\Documents\GitHub\GG\obj\Debug\GG.GGNews.resources
+>>>>>>> 00059f0094902924efe55de79166efcab853cd41
+D:\MyDatabase\Visual_studio\sourse\GG\obj\Debug\GG.GGNews.resources

@@ -10,35 +10,31 @@ namespace GG
 {
     public partial class User : Form
     {
-        Functions functions;
         protected SqlConnection conn;
 
         protected string username = "";
-        protected Color colors;
         public User(string name)
         {
             InitializeComponent();
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
             username = name;
-            colors = functions.colors;
         }
 
         private void User_Load(object sender, EventArgs e)
         {
             userToolStripMenuItem.Checked = true;
-            userToolStripMenuItem.BackColor = colors;
+            userToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
 
             Account_info_bind(username);
-            functions.Change_shap(pictureBox2);
 
             Load_imgs();
         }
 
         private void Load_imgs()
         {
-            Load_bgimg("user_background");
-            Load_portrait("user_avatar");
+            pictureBox1.Image = CommonHandler.LoadImage(username, "user_background");
+            pictureBox2.Image = CommonHandler.LoadImage(username, "user_avatar");
+            pictureBox2.Image = CommonHandler.ChangeShape(CommonHandler.ResizeImage(pictureBox2.Image, new Size(75, 75)), new Rectangle(0, 0, 75, 75), new Size(75, 75));
         }
 
         private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,14 +51,6 @@ namespace GG
             Contact contact = new Contact(username);
             contact.StartPosition = FormStartPosition.CenterScreen;
             contact.Show();
-        }
-
-        private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            News news = new News(username);
-            news.StartPosition = FormStartPosition.CenterScreen;
-            news.Show();
         }
 
         private void Account_info_bind(string name)
@@ -90,21 +78,6 @@ namespace GG
             conn.Close();
         }
 
-        private void Load_bgimg(string imgType)
-        {
-            var bytes = DatabaseHandler.SelectPicture(username, imgType);
-            Image img = Image.FromStream(new MemoryStream(bytes));
-            pictureBox1.Image = img;
-        }
-
-        private void Load_portrait(string imgType)
-        {
-            var bytes = DatabaseHandler.SelectPicture(username, imgType);
-            Image img = Image.FromStream(new MemoryStream(bytes));
-            pictureBox2.Image = img;
-            functions.Change_shap(pictureBox2);
-        }
-
         private void Edit_Click(object sender, EventArgs e)
         {
             Edit_account edit_Account = new Edit_account(this, username);
@@ -123,33 +96,10 @@ namespace GG
             openFileDialog.Filter = "Image|*.jpg;*.png";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Image img = Image.FromFile(openFileDialog.FileName);
-                pictureBox2.Image = img;
-
-                functions.Change_shap(pictureBox2);
-                string path = openFileDialog.FileName;
-                Upload_portrait(path);
+                pictureBox2.Image = CommonHandler.ResizeImage(Image.FromFile(openFileDialog.FileName), new Size(75, 75));
+                DatabaseHandler.UpdatePicture(username, CommonHandler.ImgToBase64String(pictureBox2.Image), "user_avatar");
+                pictureBox2.Image = CommonHandler.ChangeShape(pictureBox2.Image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
             }
-        }
-
-        private void Upload_portrait(string path)
-        {
-            WebClient webClient = new WebClient();
-            webClient.UploadFile("https://10.66.93.27:44376/Home.aspx", "POST", path);
-
-            Update_portraitname(username, path.Substring(path.LastIndexOf("\\") + 1));
-        }
-
-        private void Update_portraitname(string name, string portraits)
-        {
-            conn.Open();
-
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "update dbo.user_info set portrait = '" + portraits + "' where username = '" + name + "'";
-            cmd.ExecuteNonQuery();
-
-            cmd.Dispose();
-            conn.Close();
         }
 
         private void Change_bg_Click(object sender, EventArgs e)
@@ -158,40 +108,25 @@ namespace GG
             openFileDialog.Filter = "Image|*.jpg;*.png";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Image img = Image.FromFile(openFileDialog.FileName);
-                pictureBox1.Image = img;
-                string path = openFileDialog.FileName;
-                Upload_bgimg(path);
+                pictureBox1.Image = Image.FromFile(openFileDialog.FileName);
+                DatabaseHandler.UpdatePicture(username, CommonHandler.ImgToBase64String(pictureBox1.Image), "user_background");
             }
-        }
-
-        private void Upload_bgimg(string path)
-        {
-            WebClient webClient = new WebClient();
-            webClient.UploadFile("https://10.66.93.27:44376/Home.aspx", "POST", path);
-
-            Update_bgname(username, path.Substring(path.LastIndexOf("\\") + 1));
-        }
-
-        private void Update_bgname(string name, string bg)
-        {
-            conn.Open();
-
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "update dbo.user_info set bgname = '" + bg + "' where username = '" + name + "'";
-            cmd.ExecuteNonQuery();
-
-            cmd.Dispose();
-            conn.Close();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure to logout?", "GG", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                functions.Logout_Account(username);
-                Application.Exit();
+                DatabaseHandler.Logout(username);
+                Homepage.client.CloseClient();
+                foreach (var item in Contact.chatKey)
+                    item.Value.Close();
+                Contact.chatKey.Clear();
             }
+
+            Login loginPage = new Login();
+            Hide();
+            loginPage.Show();
         }
 
         public void Refresh_window(string username)
@@ -199,11 +134,31 @@ namespace GG
             Account_info_bind(username);
         }
 
-        private void User_FormClosed(object sender, FormClosedEventArgs e)
+        private void User_FormClosing(object sender, FormClosingEventArgs e)
         {
-            functions.Logout_Account(username);
-            Application.Exit();
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                DatabaseHandler.Logout(username);
+                CommonHandler.SafelyExit();
+            }
+            else
+                e.Cancel = true;
         }
 
+        private void ChinaNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            News news = new News(username);
+            news.StartPosition = FormStartPosition.CenterScreen;
+            news.Show();
+        }
+
+        private void GGNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            GGNews GGnews = new GGNews(username);
+            GGnews.StartPosition = FormStartPosition.CenterScreen;
+            GGnews.Show();
+        }
     }
 }

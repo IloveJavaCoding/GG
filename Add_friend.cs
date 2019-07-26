@@ -9,7 +9,6 @@ namespace GG
 {
     public partial class Add_friend : Form
     {
-        Functions functions;
         protected SqlConnection conn;
         protected Contact main_info;
         protected string username;
@@ -19,8 +18,7 @@ namespace GG
             this.username = username;
             InitializeComponent();
 
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
         }
 
         private void Search_Click(object sender, EventArgs e)
@@ -44,8 +42,10 @@ namespace GG
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 adapter.Fill(ds);
+				cmd.Dispose();
+				conn.Close();
 
-                int num = ds.Tables[0].Rows.Count;
+				int num = ds.Tables[0].Rows.Count;
                 if (num > 0)
                 {
                     p_info.Visible = true;
@@ -57,8 +57,7 @@ namespace GG
                     result.Visible = true;
                     result.Text = "No find any users that match the condition! Please try again.";
                 }
-                cmd.Dispose();
-                conn.Close();
+               
             }
             else
             {
@@ -108,9 +107,9 @@ namespace GG
 
         private void Result_bind(DataSet data)
         {
+            l_name.Text = data.Tables[0].Rows[0][1].ToString();
             Load_portrait();
 
-            l_name.Text = data.Tables[0].Rows[0][1].ToString();
             string gender = data.Tables[0].Rows[0][5].ToString();
             if (gender.Equals(""))
             {
@@ -137,9 +136,7 @@ namespace GG
         {
             var bytes = DatabaseHandler.SelectPicture(l_name.Text, "user_avatar");
             Image img = Image.FromStream(new MemoryStream(bytes));
-            portrait.Image = img;
-
-            functions.Change_shap(portrait);
+            portrait.Image = CommonHandler.ChangeShape(img, new Rectangle(0, 0, 75, 75), new Size(75, 75));
         }
 
 
@@ -174,5 +171,10 @@ namespace GG
             if (!connUsing)
                 conn.Close();
         }
-    }
+
+		private void Add_friend_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

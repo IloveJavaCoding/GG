@@ -9,11 +9,10 @@ namespace GG
 {
 	public partial class Contact : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 		protected string username = "";
-		protected Color colors;
 
+        // 基于用户名的聊天室
         public static Dictionary<string, Chatroom> chatKey = new Dictionary<string, Chatroom>();
 
         public Contact(string name)
@@ -21,15 +20,17 @@ namespace GG
 			InitializeComponent();
 			username = name;
 
-			functions = new Functions();
-			conn = functions.conn;
-			colors = functions.colors;
+			conn = DatabaseHandler.conn;
+
+            pictureBox2.Image = Homepage.image;
+            label2.Text = username;
+            textBox2.Text = Homepage.signature;
 		}
 
 		private void Contact_Load(object sender, EventArgs e)
 		{
 			contactsToolStripMenuItem.Checked = true;
-			contactsToolStripMenuItem.BackColor = colors;
+			contactsToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
 
 			Data_bind(username);
 		}
@@ -55,7 +56,6 @@ namespace GG
 			cmd.Dispose();
             if(!connUsing)
 			    conn.Close();
-			dataGridView1.DataSource = ds.Tables[0].DefaultView;
 
 			int num = ds.Tables[0].Rows.Count;
 
@@ -68,12 +68,12 @@ namespace GG
 					sta = "online";
 				}
 
-				string nickname = ds.Tables[0].Rows[i][18].ToString();
+				string nickname = ds.Tables[0].Rows[i][16].ToString();
 				string sign = ds.Tables[0].Rows[i][9].ToString();
 
-				friendlist.Items.Add(nickname + " | " + sign + "|" + sta);
+				friendlist.Items.Add(nickname + " | " + sta);
 			}
-			friendlist.Height = (num+1) * 16;
+			friendlist.Height = (num+1) * 21;
 		}
 
 		private void PictureBox1_Click(object sender, EventArgs e)
@@ -93,16 +93,6 @@ namespace GG
 				StartPosition = FormStartPosition.CenterScreen
 			};
 			homepage.Show();
-		}
-
-		private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Hide();
-			News news = new News(username)
-			{
-				StartPosition = FormStartPosition.CenterScreen
-			};
-			news.Show();
 		}
 
 		private void UserToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,10 +134,43 @@ namespace GG
 			return ds.Tables[0].Rows[0][2].ToString();
 		}
 
-		private void Contact_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			functions.Logout_Account(username);
-			Application.Exit();
-		}
-	}
+        private void Contact_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                DatabaseHandler.Logout(username);
+                CommonHandler.SafelyExit();
+            }
+            else
+                e.Cancel = true;
+        }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            Hide();
+            User user = new User(username)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            user.Show();
+        }
+
+        private void ChinaNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            News news = new News(username)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            news.Show();
+        }
+
+        private void GGNewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            GGNews GGnews = new GGNews(username);
+            GGnews.StartPosition = FormStartPosition.CenterScreen;
+            GGnews.Show();
+        }
+    }
 }

@@ -24,6 +24,8 @@ namespace GG
         Socket socConnection = null; //创建一个负责和服务器通信的套接字 
         Socket socketSender = null;  //负责发送消息的套接字
 
+        public bool success = false;
+
         public ClientService()
         {
             localIP = NetworkHandler.GetLocalIP(); //获取本地IP
@@ -45,6 +47,7 @@ namespace GG
             {
                 //连接到服务器
                 socketSender.Connect(remoteEndPoint);
+                success = true;
             }
             catch (SocketException e)
             {
@@ -94,14 +97,20 @@ namespace GG
                 byte[] arrRecMsg = new byte[1024 * 1024];
                 //将接收到的信息存入到内存缓冲区,并返回其字节数组的长度
                 int length = socketListener.Receive(arrRecMsg);
-                //将机器接受到的字节数组转换为人可以读懂的字符串
-                string strRecMsg = Encoding.UTF8.GetString(arrRecMsg, 0, length);
-                Dictionary<string, string> messageSet = new Dictionary<string, string>(CommonHandler.ResolveMessage(strRecMsg));
-                if (!Contact.chatKey.ContainsKey(messageSet["sender"]))
-                    MessageBox.Show(messageSet["value"], messageSet["sender"] + "-" + messageSet["time"]);
+                if (length > 0)
+                {
+                    //将机器接受到的字节数组转换为人可以读懂的字符串
+                    string strRecMsg = Encoding.UTF8.GetString(arrRecMsg, 0, length);
+                    Dictionary<string, string> messageSet = new Dictionary<string, string>(CommonHandler.ResolveMessage(strRecMsg));
+                    if (!Contact.chatKey.ContainsKey(messageSet["sender"]))
+                        MessageBox.Show(messageSet["value"], messageSet["sender"] + "-" + messageSet["time"]);
+                    else
+                        Contact.chatKey[messageSet["sender"]].NewMessage(messageSet);
+                }
                 else
-                    Contact.chatKey[messageSet["sender"]].newMessage(messageSet);
+                    break;
             }
+            socketListener.Close();
         }
 
         /// <summary>
@@ -122,7 +131,7 @@ namespace GG
 
         public void CloseClient()
         {
-            socketSender.Disconnect(false);
+            socketSender.Close();
         }
     }
 }
