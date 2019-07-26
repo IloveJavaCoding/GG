@@ -7,15 +7,13 @@ namespace GG
 {
     public partial class Login : Form
     {
-        Functions functions;
         private SqlConnection conn;
 
         public Login()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
         }
 
         private void B_login_Click(object sender, EventArgs e)
@@ -111,7 +109,7 @@ namespace GG
             }
             else
             {
-                if (ds.Tables[0].Rows[0][3].ToString().Equals(functions.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
+                if (ds.Tables[0].Rows[0][3].ToString().Equals(CommonHandler.Get_hash(password.Text, ds.Tables[0].Rows[0][2].ToString())))
                 {
                     Hide();
                     UpdateAccount(username.Text);

@@ -42,7 +42,7 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GG.exe" size="1057680">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GG.exe" size="1065360">
       <assemblyIdentity name="GG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
@@ -50,10 +50,14 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <dsig:DigestValue>3wz/oarhppfXf73oUU61o898cIJP/H49XMpzj/plcZ0=</dsig:DigestValue>
 =======
         <dsig:DigestValue>B6CjYhzZvjoH83Fw31t3wqClUH9rSgoeCIY61WdJoxQ=</dsig:DigestValue>
 >>>>>>> 00059f0094902924efe55de79166efcab853cd41
+=======
+        <dsig:DigestValue>fgm8I0moDYZAcTIrl5Cy2V+fHVX+xiF+/PYgYOm6HbQ=</dsig:DigestValue>
+>>>>>>> 188424b5703ad820aca34ef5d75571ca1bfc2158
       </hash>
     </dependentAssembly>
   </dependency>
@@ -64,6 +68,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>t3/dmCVX/IpesRlh+gGFu+rwas5fgoGiwk+VsBhpmcE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Image\cross.png" size="3634">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1qqshfirSgh5lWAWjHF7Lk+E0KAO9KhV73m5ViLTLiM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Image\default_avatar.png" size="21662">
@@ -82,6 +95,33 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>baRcqKMs97AnZoEi1QHxDtOgbkxOl/ZfgWat51nHeoc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Image\left_arrow.png" size="3640">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>rXPT2ze4w7L8w6C23VRSJgeRw4apaSxfKGVftHucTjI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Image\picture_icon.png" size="3541">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Jmr/SLnRGSXH+LoGovIeg0COYZ3Re4MPKKZww8Vvrig=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Image\right_arrow.png" size="3542">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>5ENPaE1iISeaa33TxEWYdwKUwu+ImQmnc8+S0Gqn+m8=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

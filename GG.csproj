@@ -121,7 +121,6 @@
     <Compile Include="Friend_Info.Designer.cs">
       <DependentUpon>Friend_Info.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functions.cs" />
     <Compile Include="GGNews.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,8 +238,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Image\cross.png" />
     <Content Include="Image\default_avatar.png" />
     <Content Include="Image\default_background.png" />
+    <Content Include="Image\left_arrow.png" />
+    <Content Include="Image\picture_icon.png" />
+    <Content Include="Image\right_arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

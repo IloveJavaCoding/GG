@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace GG
 {
     class DatabaseHandler
     {
-        private static readonly SqlConnection conn
+        public static readonly SqlConnection conn
             = new SqlConnection(@"Server=MRD;Database=IMS;UId=admin;Password=aaaa");
 
         /// <summary>
@@ -163,6 +164,18 @@ namespace GG
             return signature;
         }
 
+        public static void Logout(string username)
+        {
+            conn.Open();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "update dbo.user_info set status = 0 where username = @UN";
+            cmd.Parameters.Add("@UN", SqlDbType.VarChar).Value = username;
+            cmd.ExecuteNonQuery();
+
+            cmd.Dispose();
+            conn.Close();
+        }
+
         public static void UpdateSignature(string username, string signature)
         {
             conn.Open();
@@ -173,6 +186,41 @@ namespace GG
             update.ExecuteNonQuery();
 
             update.Dispose();
+            conn.Close();
+        }
+
+        public static DataTable SelectNews(string author)
+        {
+            conn.Open();
+            SqlCommand select = new SqlCommand("select * from user_news where author = @AUT", conn);
+            select.Parameters.Add("@AUT", SqlDbType.VarChar).Value = author;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(select);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "news");
+
+            DataTable news = ds.Tables["news"];
+
+            adapter.Dispose();
+            ds.Dispose();
+            select.Dispose();
+            conn.Close();
+
+            return news;
+        }
+
+        public static void InsertNews(string author, string content, string pictureStr)
+        {
+            conn.Open();
+            SqlCommand insert = new SqlCommand("insert into user_news (author, content, date, title_picture) values(@AUT, @CONT, @DATE, @PIC)", conn);
+            insert.Parameters.Add("@AUT", SqlDbType.VarChar).Value = author;
+            insert.Parameters.Add("@CONT", SqlDbType.VarChar).Value = content;
+            insert.Parameters.Add("@DATE", SqlDbType.DateTime).Value = CommonHandler.GetCurrentTime();
+            insert.Parameters.Add("@PIC", SqlDbType.VarChar).Value = pictureStr;
+
+            insert.ExecuteNonQuery();
+
+            insert.Dispose();
             conn.Close();
         }
     }

@@ -102,7 +102,6 @@
             this.newsToolStripMenuItem.Name = "newsToolStripMenuItem";
             this.newsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.newsToolStripMenuItem.Text = "News";
-            this.newsToolStripMenuItem.Click += new System.EventHandler(this.NewsToolStripMenuItem_Click);
             // 
             // userToolStripMenuItem
             // 

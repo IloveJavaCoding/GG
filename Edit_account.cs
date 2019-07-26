@@ -8,7 +8,6 @@ namespace GG
 {
 	public partial class Edit_account : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 
 		private User main_info;
@@ -19,8 +18,7 @@ namespace GG
 			this.main_info = main_info;
 			this.username = username;
 
-			functions = new Functions();
-			conn = functions.conn;
+			conn = DatabaseHandler.conn;
 			InitializeComponent();
 			gender_list = new List<string> { };
 			gender_list.Add("Male");

@@ -54,7 +54,7 @@ namespace GG
             imageList1.Images.Clear();
             foreach (string key in Contact.chatKey.Keys)
             {
-                Image img = CommonHandler.LoadImage(key, "user_avatar");
+                Image img = CommonHandler.ChangeShape(CommonHandler.ResizeImage(CommonHandler.LoadImage(key, "user_avatar"), new Size(50,50)), new Rectangle(0, 0, 50, 50), new Size(50, 50));
                 imageList1.Images.Add(img);
                 string latestMsg = key + ":\n" + DatabaseHandler.SelectLatestMessage(key, localUser);
                 if (latestMsg.Length > 30)
