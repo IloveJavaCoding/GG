@@ -71,7 +71,7 @@ namespace GG
 				string nickname = ds.Tables[0].Rows[i][16].ToString();
 				string sign = ds.Tables[0].Rows[i][9].ToString();
 
-				friendlist.Items.Add(nickname + " | " + sign + "|" + sta);
+				friendlist.Items.Add(nickname + " | " + sta);
 			}
 			friendlist.Height = (num+1) * 21;
 		}

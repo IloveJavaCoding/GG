@@ -266,10 +266,10 @@ namespace GG
             Bitmap bitmap = new Bitmap(size.Width, size.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                using (TextureBrush br = new TextureBrush(img, System.Drawing.Drawing2D.WrapMode.Clamp, rec))
+                using (TextureBrush br = new TextureBrush(img, WrapMode.Clamp, rec))
                 {
                     br.ScaleTransform(bitmap.Width / (float)rec.Width, bitmap.Height / (float)rec.Height);
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
                     g.FillEllipse(br, new Rectangle(Point.Empty, size));
                 }
             }

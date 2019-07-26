@@ -42,22 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GG.exe" size="1065360">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GG.exe" size="1068944">
       <assemblyIdentity name="GG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <dsig:DigestValue>3wz/oarhppfXf73oUU61o898cIJP/H49XMpzj/plcZ0=</dsig:DigestValue>
-=======
-        <dsig:DigestValue>B6CjYhzZvjoH83Fw31t3wqClUH9rSgoeCIY61WdJoxQ=</dsig:DigestValue>
->>>>>>> 00059f0094902924efe55de79166efcab853cd41
-=======
-        <dsig:DigestValue>fgm8I0moDYZAcTIrl5Cy2V+fHVX+xiF+/PYgYOm6HbQ=</dsig:DigestValue>
->>>>>>> 188424b5703ad820aca34ef5d75571ca1bfc2158
+        <dsig:DigestValue>9kFZjJoSEFpQPGFbcFt51dfDGdrxrJLQUAk1IEjcnbk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
