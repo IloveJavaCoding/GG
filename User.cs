@@ -53,11 +53,6 @@ namespace GG
             contact.Show();
         }
 
-        private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Account_info_bind(string name)
         {
             label1.Text = name;
