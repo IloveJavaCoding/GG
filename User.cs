@@ -10,24 +10,20 @@ namespace GG
 {
     public partial class User : Form
     {
-        Functions functions;
         protected SqlConnection conn;
 
         protected string username = "";
-        protected Color colors;
         public User(string name)
         {
             InitializeComponent();
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
             username = name;
-            colors = functions.colors;
         }
 
         private void User_Load(object sender, EventArgs e)
         {
             userToolStripMenuItem.Checked = true;
-            userToolStripMenuItem.BackColor = colors;
+            userToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
 
             Account_info_bind(username);
 
@@ -38,7 +34,7 @@ namespace GG
         {
             pictureBox1.Image = CommonHandler.LoadImage(username, "user_background");
             pictureBox2.Image = CommonHandler.LoadImage(username, "user_avatar");
-            pictureBox2.Image = functions.Change_shap(CommonHandler.ResizeImage(pictureBox2.Image, new Size(75, 75)));
+            pictureBox2.Image = CommonHandler.ChangeShape(CommonHandler.ResizeImage(pictureBox2.Image, new Size(75, 75)), new Rectangle(0, 0, 75, 75), new Size(75, 75));
         }
 
         private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,7 +103,7 @@ namespace GG
             {
                 pictureBox2.Image = CommonHandler.ResizeImage(Image.FromFile(openFileDialog.FileName), new Size(75, 75));
                 DatabaseHandler.UpdatePicture(username, CommonHandler.ImgToBase64String(pictureBox2.Image), "user_avatar");
-                pictureBox2.Image = functions.Change_shap(pictureBox2.Image);
+                pictureBox2.Image = CommonHandler.ChangeShape(pictureBox2.Image, new Rectangle(0, 0, 75, 75), new Size(75, 75));
             }
         }
 
@@ -126,7 +122,7 @@ namespace GG
         {
             if (MessageBox.Show("Are you sure to logout?", "GG", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                functions.Logout_Account(username);
+                DatabaseHandler.Logout(username);
                 Homepage.client.CloseClient();
                 foreach (var item in Contact.chatKey)
                     item.Value.Close();
@@ -147,7 +143,7 @@ namespace GG
         {
             if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                functions.Logout_Account(username);
+                DatabaseHandler.Logout(username);
                 CommonHandler.SafelyExit();
             }
             else

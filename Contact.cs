@@ -9,10 +9,8 @@ namespace GG
 {
 	public partial class Contact : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 		protected string username = "";
-		protected Color colors;
 
         // 基于用户名的聊天室
         public static Dictionary<string, Chatroom> chatKey = new Dictionary<string, Chatroom>();
@@ -22,9 +20,7 @@ namespace GG
 			InitializeComponent();
 			username = name;
 
-			functions = new Functions();
-			conn = functions.conn;
-			colors = functions.colors;
+			conn = DatabaseHandler.conn;
 
             pictureBox2.Image = Homepage.image;
             label2.Text = username;
@@ -34,7 +30,7 @@ namespace GG
 		private void Contact_Load(object sender, EventArgs e)
 		{
 			contactsToolStripMenuItem.Checked = true;
-			contactsToolStripMenuItem.BackColor = colors;
+			contactsToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
 
 			Data_bind(username);
 		}
@@ -142,7 +138,7 @@ namespace GG
         {
             if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                functions.Logout_Account(username);
+                DatabaseHandler.Logout(username);
                 CommonHandler.SafelyExit();
             }
             else

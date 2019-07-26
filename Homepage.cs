@@ -12,11 +12,10 @@ namespace GG
 {
     public partial class Homepage : Form
     {
-        Functions functions;
         protected SqlConnection conn;
         protected string username = "";
-        protected Color colors;
         private DataTable friends;
+        private bool clicked = false;
 
         public static ClientService client = new ClientService();
         public static Image image;
@@ -27,10 +26,8 @@ namespace GG
             InitializeComponent();
 
             username = name;
-            functions = new Functions();
-            conn = functions.conn;
-            colors = functions.colors;
-            image = CommonHandler.ChangeShape(CommonHandler.LoadImage(username, "user_avatar"), new Size(75, 75));
+            conn = DatabaseHandler.conn;
+            image = CommonHandler.ChangeShape(CommonHandler.LoadImage(username, "user_avatar"), new Rectangle(0, 0, 75, 75), new Size(75, 75));
             signature = DatabaseHandler.SelectSignature(username);
 
             pictureBox1.Image = image;
@@ -43,7 +40,7 @@ namespace GG
         private void Homepage_Load(object sender, EventArgs e)
         {
             messageToolStripMenuItem.Checked = true;
-            messageToolStripMenuItem.BackColor = colors;
+            messageToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
         }
 
         /// <summary>
@@ -55,7 +52,7 @@ namespace GG
             imageList1.Images.Clear();
             foreach (DataRow row in friends.Rows)
             {
-                Image img = CommonHandler.ChangeShape(CommonHandler.LoadImage(row[0].ToString(), "user_avatar"), new Size(45, 45));
+                Image img = CommonHandler.ChangeShape(CommonHandler.ResizeImage(CommonHandler.LoadImage(row[0].ToString(), "user_avatar"), new Size(45, 45)), new Rectangle(0, 0, 45, 45), new Size(45, 45));
                 imageList1.Images.Add(img);
                 string latestMsg = row[0].ToString() + " says: " + DatabaseHandler.SelectLatestMessage(row[0].ToString(), username);
                 if (latestMsg.Length > 30)
@@ -108,7 +105,7 @@ namespace GG
         {
             if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                functions.Logout_Account(username);
+                DatabaseHandler.Logout(username);
                 CommonHandler.SafelyExit();
             }
             else
@@ -157,7 +154,7 @@ namespace GG
 
         private void TextBox2_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 DatabaseHandler.UpdateSignature(username, textBox2.Text);
             }
@@ -189,6 +186,17 @@ namespace GG
             GGNews GGnews = new GGNews(username);
             GGnews.StartPosition = FormStartPosition.CenterScreen;
             GGnews.Show();
+        }
+
+        private void TextBox2_Click(object sender, EventArgs e)
+        {
+            if(!clicked)
+            {
+                textBox2.ForeColor = Color.Black;
+                textBox2.Text = "";
+                clicked = true;
+            }
+
         }
     }
 }

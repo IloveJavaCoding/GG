@@ -7,7 +7,6 @@ namespace GG
 {
 	public partial class Change_password : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 
 		private User main_info;
@@ -19,8 +18,7 @@ namespace GG
 			this.username = username;
 			InitializeComponent();
 
-			functions = new Functions();
-			conn = functions.conn;
+			conn = DatabaseHandler.conn;
 		}
 
 		private void Button1_Click(object sender, EventArgs e)
@@ -49,13 +47,13 @@ namespace GG
 
 		private void Change_Password(string name, string password)
 		{
-			string salt = functions.Get_salt();
+			string salt = CommonHandler.Get_salt();
 			conn.Open();
 
 			SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = "update dbo.user_info set salt=@SALT, hash=@HASH where username = '" + name + "'";
 			cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
-			cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(password, salt);
+			cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = CommonHandler.Get_hash(password, salt);
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();
@@ -75,7 +73,7 @@ namespace GG
 			conn.Close();
 			string salt = ds.Tables[0].Rows[0][2].ToString();
 			string hash = ds.Tables[0].Rows[0][3].ToString();
-			if (functions.Get_hash(password,salt).Equals(hash))
+			if (CommonHandler.Get_hash(password,salt).Equals(hash))
 			{
 				return true;
 			}

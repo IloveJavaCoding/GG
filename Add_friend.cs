@@ -9,7 +9,6 @@ namespace GG
 {
     public partial class Add_friend : Form
     {
-        Functions functions;
         protected SqlConnection conn;
         protected Contact main_info;
         protected string username;
@@ -19,8 +18,7 @@ namespace GG
             this.username = username;
             InitializeComponent();
 
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
         }
 
         private void Search_Click(object sender, EventArgs e)
@@ -137,7 +135,7 @@ namespace GG
         {
             var bytes = DatabaseHandler.SelectPicture(l_name.Text, "user_avatar");
             Image img = Image.FromStream(new MemoryStream(bytes));
-            portrait.Image = functions.Change_shap(img);
+            portrait.Image = CommonHandler.ChangeShape(img, new Rectangle(0, 0, 75, 75), new Size(75, 75));
         }
 
 

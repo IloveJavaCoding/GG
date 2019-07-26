@@ -84,14 +84,14 @@
             // bBCNewsToolStripMenuItem
             // 
             this.bBCNewsToolStripMenuItem.Name = "bBCNewsToolStripMenuItem";
-            this.bBCNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bBCNewsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.bBCNewsToolStripMenuItem.Text = "China News";
             this.bBCNewsToolStripMenuItem.Click += new System.EventHandler(this.ChinaNewsToolStripMenuItem_Click);
             // 
             // gGNewsToolStripMenuItem
             // 
             this.gGNewsToolStripMenuItem.Name = "gGNewsToolStripMenuItem";
-            this.gGNewsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gGNewsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.gGNewsToolStripMenuItem.Text = "GG News";
             this.gGNewsToolStripMenuItem.Click += new System.EventHandler(this.GGNewsToolStripMenuItem_Click);
             // 
@@ -142,10 +142,13 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox2.ForeColor = System.Drawing.Color.Gray;
             this.textBox2.Location = new System.Drawing.Point(93, 88);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(153, 25);
             this.textBox2.TabIndex = 10;
+            this.textBox2.Text = "Edit signature";
+            this.textBox2.Click += new System.EventHandler(this.TextBox2_Click);
             this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox2_KeyDown);
             // 
             // listViewEx1

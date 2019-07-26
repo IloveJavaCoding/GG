@@ -8,28 +8,26 @@ namespace GG
 {
 	public partial class Register : Form
 	{
-		Functions functions;
 		protected SqlConnection conn;
 
 		public Register()
 		{
 			InitializeComponent();
-			functions = new Functions();
-			conn = functions.conn;
+			conn = DatabaseHandler.conn;
 		}
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
 			if (Valide(tb1.Text, tb2.Text, tb3.Text))
 			{
-				string ipv4 = functions.Get_Host_IP();
-				string salt = functions.Get_salt();
+				string ipv4 = NetworkHandler.GetLocalIP();
+				string salt = CommonHandler.Get_salt();
 				conn.Open();
 
 				SqlCommand cmd = new SqlCommand("insert into user_info(username,salt,hash,status,ip,answer) values(@UN, @SALT, @HASH,0,@IP,@AS)", conn);
 				cmd.Parameters.Add("@UN", SqlDbType.VarChar, 50).Value = tb1.Text;
 				cmd.Parameters.Add("@SALT", SqlDbType.VarChar, 50).Value = salt;
-				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = functions.Get_hash(tb2.Text,salt);
+				cmd.Parameters.Add("@HASH", SqlDbType.VarChar, 50).Value = CommonHandler.Get_hash(tb2.Text,salt);
 				cmd.Parameters.Add("@IP", SqlDbType.VarChar, 50).Value = ipv4;
 				cmd.Parameters.Add("@AS", SqlDbType.VarChar, 50).Value = tb4.Text;
 

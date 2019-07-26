@@ -10,7 +10,6 @@ namespace GG
 {
     public partial class Friend_Info : Form
     {
-        Functions functions;
         private SqlConnection conn;
 
         protected Contact main_info;
@@ -24,8 +23,7 @@ namespace GG
             this.friendname = friendname;
             InitializeComponent();
 
-            functions = new Functions();
-            conn = functions.conn;
+            conn = DatabaseHandler.conn;
         }
 
         private void Friend_Info_Load(object sender, EventArgs e)
@@ -76,7 +74,7 @@ namespace GG
             l_sign.Text = ds.Tables[0].Rows[0][9].ToString();
 
             bg_img.Image = CommonHandler.LoadImage(friendname, "user_background");
-            portrait_img.Image = functions.Change_shap(CommonHandler.LoadImage(friendname, "user_avatar"));
+            portrait_img.Image = CommonHandler.ChangeShape(CommonHandler.LoadImage(friendname, "user_avatar"), new Rectangle(0, 0, 75, 75), new Size(75, 75));
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -115,8 +113,8 @@ namespace GG
             {
                 Contact.chatKey.Add(friendname, new Chatroom(username, friendname));
             }
-            if(Contact.chatKey.Count == 1)
-                Contact.chatKey.Values.First().StartPosition =  FormStartPosition.CenterScreen;
+            if (Contact.chatKey.Count == 1)
+                Contact.chatKey.Values.First().StartPosition = FormStartPosition.CenterScreen;
             CommonHandler.UpdateShowing(friendname);
         }
     }

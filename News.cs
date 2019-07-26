@@ -7,25 +7,21 @@ namespace GG
 {
     public partial class News : Form
     {
-        Functions functions;
         private SqlConnection conn;
         protected string username = "";
-        protected Color colors;
 
         public News(string name)
         {
             InitializeComponent();
             username = name;
 
-            functions = new Functions();
-            conn = functions.conn;
-            colors = functions.colors;
+            conn = DatabaseHandler.conn;
         }
 
         private void News_Load(object sender, EventArgs e)
         {
             newsToolStripMenuItem.Checked = true;
-            newsToolStripMenuItem.BackColor = colors;
+            newsToolStripMenuItem.BackColor = Color.FromArgb(112, 224, 255);
         }
 
         private void MessageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,7 +58,7 @@ namespace GG
         {
             if (MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                functions.Logout_Account(username);
+                DatabaseHandler.Logout(username);
                 CommonHandler.SafelyExit();
             }
             else

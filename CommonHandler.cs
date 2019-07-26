@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -17,9 +18,23 @@ namespace GG
     {
         private const int HASH_BYTE_SIZE = 32;
         private const int PBKDF2_ITERATIONS = 1000;
+        private const int SALT_BYTE_SIZE = 32;
 
         /// <summary>
-        /// 获取哈希值
+        /// 获取盐值
+        /// </summary>
+        /// <returns></returns>
+        public static string Get_salt()
+        {
+            RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
+            byte[] salt = new byte[SALT_BYTE_SIZE];
+            csprng.GetBytes(salt);
+
+            return Convert.ToBase64String(salt, 0, 24); ;
+        }
+
+        /// <summary>
+        /// 获取加盐哈希值
         /// </summary>
         /// <param name="password"></param>
         /// <param name="str"></param>
@@ -161,6 +176,14 @@ namespace GG
             }
         }
 
+        public static Image Base64StringToImg(string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+            MemoryStream memStream = new MemoryStream(bytes);
+
+            return Image.FromStream(memStream);
+        }
+
         /// <summary>
         /// 加载图片
         /// </summary>
@@ -231,9 +254,15 @@ namespace GG
             return b;
         }
 
-        public static Image ChangeShape(Image img, Size size)
+        /// <summary>
+        /// 改变图片形状
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="rec">要求小于或等于size</param>
+        /// <param name="size">要求大于或等于rec</param>
+        /// <returns></returns>
+        public static Image ChangeShape(Image img, Rectangle rec, Size size)
         {
-            Rectangle rec = new Rectangle(0, 0, 75, 75);
             Bitmap bitmap = new Bitmap(size.Width, size.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
