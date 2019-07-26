@@ -72,7 +72,7 @@ namespace GG
             listView1.SmallImageList = imageList;
 
             foreach (string key in Contact.chatKey.Keys)
-                if (Contact.chatKey[key].watching)
+                if (Contact.chatKey[key].Visible)
                     watchingKey = key;
 
             listView1.BeginUpdate();
@@ -151,6 +151,7 @@ namespace GG
             List<string> list = new List<string>(Contact.chatKey.Keys);
             if (Contact.chatKey.Count() > 1)
             {
+                Contact.chatKey[remoteUser].Hide();
                 Contact.chatKey.Remove(remoteUser);
                 CommonHandler.UpdateShowing(Contact.chatKey.Keys.First());
             }
@@ -167,8 +168,11 @@ namespace GG
             {
                 if (MessageBox.Show("Existing mutiple windows, are you sure to exit?", "Warnning", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    Hide();
-                    Contact.chatKey.Clear();
+                    foreach (var item in Contact.chatKey)
+                    {
+                        item.Value.Hide();
+                        Contact.chatKey.Remove(item.Key);
+                    }
                 }
                 else
                     e.Cancel = true;

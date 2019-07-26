@@ -49,6 +49,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -56,6 +58,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -225,9 +229,8 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(93, 279);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 33);
+            this.label3.Size = new System.Drawing.Size(0, 33);
             this.label3.TabIndex = 17;
-            this.label3.Text = "[name]";
             // 
             // label4
             // 
@@ -236,13 +239,12 @@
             this.label4.ForeColor = System.Drawing.Color.Gray;
             this.label4.Location = new System.Drawing.Point(96, 322);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 22);
+            this.label4.Size = new System.Drawing.Size(0, 22);
             this.label4.TabIndex = 18;
-            this.label4.Text = "[time]";
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Location = new System.Drawing.Point(12, 448);
+            this.pictureBox6.Location = new System.Drawing.Point(12, 415);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(241, 142);
             this.pictureBox6.TabIndex = 19;
@@ -250,12 +252,30 @@
             // 
             // label5
             // 
+            this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(10, 357);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(243, 88);
+            this.label5.Size = new System.Drawing.Size(0, 24);
             this.label5.TabIndex = 20;
-            this.label5.Text = "[Content]";
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Location = new System.Drawing.Point(12, 584);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox7.TabIndex = 21;
+            this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.PictureBox7_Click);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Location = new System.Drawing.Point(228, 584);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox8.TabIndex = 22;
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.PictureBox8_Click);
             // 
             // GGNews
             // 
@@ -263,6 +283,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(265, 631);
+            this.Controls.Add(this.pictureBox8);
+            this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.label4);
@@ -290,6 +312,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,5 +342,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox8;
     }
 }

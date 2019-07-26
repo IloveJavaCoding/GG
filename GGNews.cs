@@ -28,6 +28,8 @@ namespace GG
             pictureBox1.Image = Homepage.image;
             label2.Text = username;
             textBox2.Text = Homepage.signature;
+            pictureBox7.Image = CommonHandler.ResizeImage(new Bitmap("../../Image/left_arrow.png"), new Size(25, 25));
+            pictureBox8.Image = CommonHandler.ResizeImage(new Bitmap("../../Image/right_arrow.png"), new Size(25, 25));
 
             LoadNews();
         }
@@ -36,11 +38,11 @@ namespace GG
         {
             GetReleventUser(username);
             Random random = new Random();
-            int i = random.Next(releventUsers.Count - 1);
+            int i = random.Next(releventUsers.Count);
             DataTable newsTable = DatabaseHandler.SelectNews(releventUsers[i].ToString());
             if (newsTable.Rows.Count > 0)
             {
-                i = random.Next(newsTable.Rows.Count - 1);
+                i = random.Next(newsTable.Rows.Count);
                 DataRow news = newsTable.Rows[i];
                 pictureBox5.Image = CommonHandler.ChangeShape(CommonHandler.LoadImage(news[1].ToString(), "user_avatar"), new Rectangle(0, 0, 75, 75), new Size(75, 75));
                 label3.Text = news[1].ToString();
@@ -210,6 +212,16 @@ namespace GG
             }
             else
                 e.Cancel = true;
+        }
+
+        private void PictureBox7_Click(object sender, EventArgs e)
+        {
+            LoadNews();
+        }
+
+        private void PictureBox8_Click(object sender, EventArgs e)
+        {
+            LoadNews();
         }
     }
 }

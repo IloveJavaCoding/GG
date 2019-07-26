@@ -119,9 +119,10 @@ namespace GG
             if (!Contact.chatKey.ContainsKey(strArr[0]))
             {
                 Contact.chatKey.Add(strArr[0], new Chatroom(username, strArr[0]));
+                Contact.chatKey[strArr[0]].Show();
             }
-            if (Contact.chatKey.Count == 1)
-                Contact.chatKey.Values.First().StartPosition = FormStartPosition.CenterScreen;
+            //if (Contact.chatKey.Count == 1)
+            //    Contact.chatKey.Values.First().StartPosition = FormStartPosition.CenterScreen;
             CommonHandler.UpdateShowing(strArr[0]);
         }
 

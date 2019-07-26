@@ -72,7 +72,13 @@ namespace GG
         /// <returns></returns>
         public static byte[] SelectPicture(string username, string pictureType)
         {
-            conn.Open();
+            bool connUsing = true;
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+                connUsing = false;
+            }
+
             SqlCommand select = conn.CreateCommand();
             select.CommandType = CommandType.Text;
             if (pictureType.Equals("user_avatar"))
@@ -90,7 +96,8 @@ namespace GG
             adpter.Dispose();
             ds.Dispose();
             select.Dispose();
-            conn.Close();
+            if (!connUsing)
+                conn.Close();
 
             return Convert.FromBase64String(value);
         }

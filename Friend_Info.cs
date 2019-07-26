@@ -112,9 +112,10 @@ namespace GG
             if (!Contact.chatKey.ContainsKey(friendname))
             {
                 Contact.chatKey.Add(friendname, new Chatroom(username, friendname));
+                Contact.chatKey[friendname].Show();
             }
-            if (Contact.chatKey.Count == 1)
-                Contact.chatKey.Values.First().StartPosition = FormStartPosition.CenterScreen;
+            //if (Contact.chatKey.Count == 1)
+            //    Contact.chatKey.Values.First().StartPosition = FormStartPosition.CenterScreen;
             CommonHandler.UpdateShowing(friendname);
         }
     }

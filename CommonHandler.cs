@@ -283,15 +283,13 @@ namespace GG
             {
                 if (item.Key.Equals(friendname))
                 {
-                    item.Value.watching = true;
-                    foreach (var chat in Contact.chatKey)
-                        chat.Value.Location = Contact.chatKey.Values.First().Location;
-                    item.Value.Show();
+                    //foreach (var chat in Contact.chatKey)
+                    //    chat.Value.Location = Contact.chatKey.Values.First().Location;
+                    item.Value.Visible = true;
                 }
                 else
                 {
-                    item.Value.watching = false;
-                    item.Value.Hide();
+                    item.Value.Visible = false;
                 }
             }
 
